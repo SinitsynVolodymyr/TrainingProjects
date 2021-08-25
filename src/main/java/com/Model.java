@@ -24,6 +24,22 @@ public class Model {
     }
 
 
+    public ComparisonResult checkValueAndRealizeIt(int inputValue){
+        historyNumberList.add(inputValue);
+
+        if (inputValue<=minValue||inputValue>=maxValue){
+            return ComparisonResult.OVER_THE_RANGE;
+        }else if(inputValue>value){
+            maxValue = inputValue;
+            return ComparisonResult.IS_BIGGEST;
+        }else if(inputValue<value){
+            minValue = inputValue;
+            return ComparisonResult.IS_LOWEST;
+        }else{
+            return ComparisonResult.RIGHT_NUMBER;
+        }
+    }
+
 
     enum ComparisonResult{
         IS_BIGGEST, IS_LOWEST, OVER_THE_RANGE, RIGHT_NUMBER;
