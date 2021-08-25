@@ -12,6 +12,22 @@ public class Model {
     private int minValue = 0;
     private int maxValue = RAND_MAX;
 
+    public Model() {
+        value = rand();
+    }
+
+    public List<Integer> getHistoryNumberList() {
+        return historyNumberList;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+
     public static int rand(){
         return rand(0, RAND_MAX);
     }
