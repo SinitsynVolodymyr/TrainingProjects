@@ -12,4 +12,8 @@ public class Model {
     private int maxValue = RAND_MAX;
 
 
+    enum ComparisonResult{
+        IS_BIGGEST, IS_LOWEST, OVER_THE_RANGE, RIGHT_NUMBER;
+    }
+
 }
