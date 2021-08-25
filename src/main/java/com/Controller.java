@@ -1,6 +1,9 @@
 package com;
 
+import javax.jws.WebParam;
+import java.util.Arrays;
 import java.util.Scanner;
+import com.Model.ComparisonResult;
 
 public class Controller {
 
@@ -18,7 +21,25 @@ public class Controller {
     public void processUser(){
         Scanner sc = new Scanner(System.in);
 
+        ComparisonResult result = ComparisonResult.OVER_THE_RANGE;
+        while (!result.equals(ComparisonResult.RIGHT_NUMBER)) {
+            view.printMessage(String.format(View.SHOW_ATTEMPTED_FORMAT, model.getHistoryNumberList()));
+            view.printMessage(String.format(View.CORRECT_RANGE_FORMAT,model.getMinValue(),model.getMaxValue()));
 
+            int inputValue = inputIntValueWithScanner(sc);
+            result = model.checkValueAndRealizeIt(inputValue);
+
+            if (result.equals(ComparisonResult.OVER_THE_RANGE)) {
+                view.printMessage(View.WRONG_INT_RANGE);
+            }else if (result.equals(ComparisonResult.IS_BIGGEST)) {
+                view.printMessage(View.NUMBER_IS_BIGGER);
+            }else if (result.equals(ComparisonResult.IS_LOWEST)) {
+                view.printMessage(View.NUMBER_IS_LESS);
+            }
+        }
+
+        view.printMessage(View.SUCCESS_INT_DATA);
+        
 
     }
 
