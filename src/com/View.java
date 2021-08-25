@@ -7,9 +7,11 @@ public class View {
     public static final String SUCCESS_INT_DATA = "You guessed the number!";
     public static final String NUMBER_IS_LESS = "Your number is less than needed";
     public static final String NUMBER_IS_BIGGER = "Your number is more than needed";
+    public static final String CORRECT_RANGE_FORMAT = "The right number included between %s and %s";
+    public static final String SHOW_ATTEMPTED_FORMAT = "Your attempted: %s";
 
-
-
-
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
 
 }
