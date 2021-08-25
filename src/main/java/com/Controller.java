@@ -39,7 +39,7 @@ public class Controller {
         }
 
         view.printMessage(View.SUCCESS_INT_DATA);
-        
+        view.printMessage(String.format(View.SHOW_ATTEMPTED_FORMAT, model.getHistoryNumberList()));
 
     }
 
