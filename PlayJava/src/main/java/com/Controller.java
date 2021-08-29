@@ -1,7 +1,5 @@
 package com;
 
-import javax.jws.WebParam;
-import java.util.Arrays;
 import java.util.Scanner;
 import com.Model.ComparisonResult;
 
