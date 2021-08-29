@@ -14,7 +14,7 @@ public class Controller {
         this.view = view;
     }
 
-
+    // Test commit
     // The Work method
     public void processUser(){
         Scanner sc = new Scanner(System.in);
