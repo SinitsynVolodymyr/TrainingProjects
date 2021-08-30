@@ -135,4 +135,33 @@ class ModelTest {
         }
     }
 
+    @Test
+    void checkValueAndRealizeIt_CHANGE_LOW_RANGE() {
+        int minValue = 1;
+        Model model = null;
+        int amountIt = 100;
+        for (int i = 0; i< amountIt; i++)
+        model = new Model();
+        Model.ComparisonResult resultLowValue = model.checkValueAndRealizeIt(minValue);
+        if (!resultLowValue.equals(
+                Model.ComparisonResult.RIGHT_NUMBER)){
+            assertEquals(model.checkValueAndRealizeIt(minValue),
+                    Model.ComparisonResult.OVER_THE_RANGE);
+        }
+    }
+
+    @Test
+    void checkValueAndRealizeIt_CHANGE_BIG_RANGE() {
+        int maxValue = Model.RAND_MAX-1;
+        Model model = null;
+        int amountIt = 100;
+        for (int i = 0; i< amountIt; i++)
+        model = new Model();
+        Model.ComparisonResult resultLowValue = model.checkValueAndRealizeIt(maxValue);
+        if (!resultLowValue.equals(
+                Model.ComparisonResult.RIGHT_NUMBER)){
+            assertEquals(model.checkValueAndRealizeIt(maxValue),
+                    Model.ComparisonResult.OVER_THE_RANGE);
+        }
+    }
 }
