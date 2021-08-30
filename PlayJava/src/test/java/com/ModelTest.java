@@ -15,10 +15,12 @@ class ModelTest {
     private static int minCheckValue = -100;
     private static int maxCheckValue = 200;
     private static Model model ;
+    private static int amountIteration = 10000;
+    private static List<Integer> randomList = new ArrayList<>();
 
 
-    private int minRandValue = 3;
-    private int maxRandValue = 5;
+    private int minRandValue = 0;
+    private int maxRandValue = Model.RAND_MAX;
 
     @BeforeAll
     static void initResults(){
@@ -28,40 +30,43 @@ class ModelTest {
         }
     }
 
+    //If you want to test rand() uncomment the @BeforeAll
+    //@BeforeAll
+    static void initRandIntegerListWithDifferentValues(){
+        for (int i=0;i<amountIteration;i++){
+            randomList.add(Model.rand());
+        }
+    }
+
     @Test
     void rand() {
         int randResult = Model.rand();
         assertTrue(randResult>=0&&randResult<=Model.RAND_MAX);
     }
 
-    List<Integer> initRandIntegerListWithDifferentValues(){
-        int amountIteration = 100;
 
-        List<Integer> resultList = new ArrayList<>();
-        for (int i=0;i<amountIteration;i++){
-            resultList.add(Model.rand(minRandValue,maxRandValue));
+    @Test
+    void rand_IN_RANGE() {
+        for (int resTmp: randomList) {
+            assertTrue(resTmp > 0 && resTmp < Model.RAND_MAX);
         }
-
-        return resultList;
     }
 
     @Test
-    void rand_WITH_DIFFERENT_VALUES_TRUE() {
-        List<Integer> resultList = initRandIntegerListWithDifferentValues();
-
-        assertTrue(resultList.contains(minRandValue));
-        assertTrue(resultList.contains(maxRandValue));
+    void rand_OUT_RANGE() {
+        for (int resTmp: randomList) {
+            assertFalse(resTmp <= 0 || resTmp >= Model.RAND_MAX);
+        }
     }
 
     @Test
-    void rand_WITH_DIFFERENT_VALUES_FALSE() {
-        List<Integer> resultList = initRandIntegerListWithDifferentValues();
-
-        for (Integer resTmp : resultList){
-            assertFalse(resTmp > maxRandValue);
-            assertFalse(resTmp < minRandValue);
+    void rand_RANGE() {
+        if (randomList.size()>0) {
+            assertFalse(randomList.contains(minRandValue));
+            assertFalse(randomList.contains(maxRandValue));
+            assertTrue(randomList.contains(minRandValue + 1));
+            assertTrue(randomList.contains(maxRandValue - 1));
         }
-
     }
 
     @Test
@@ -129,6 +134,5 @@ class ModelTest {
             }
         }
     }
-
 
 }
