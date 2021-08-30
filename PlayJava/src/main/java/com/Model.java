@@ -42,17 +42,29 @@ public class Model {
 
     public ComparisonResult checkValueAndRealizeIt(int inputValue){
         historyNumberList.add(inputValue);
+        ComparisonResult result = checkValue(inputValue);
+        realizeResult(result,inputValue);
 
+        return result;
+    }
+
+    public ComparisonResult checkValue(int inputValue){
         if (inputValue<=minValue||inputValue>=maxValue){
             return ComparisonResult.OVER_THE_RANGE;
         }else if(inputValue>value){
-            maxValue = inputValue;
             return ComparisonResult.IS_BIGGEST;
         }else if(inputValue<value){
-            minValue = inputValue;
             return ComparisonResult.IS_LOWEST;
         }else{
             return ComparisonResult.RIGHT_NUMBER;
+        }
+    }
+
+    private void realizeResult(ComparisonResult result,int inputValue){
+        if (result.equals(ComparisonResult.IS_BIGGEST)){
+            maxValue = inputValue;
+        }else if(result.equals(ComparisonResult.IS_LOWEST)){
+            minValue = inputValue;
         }
     }
 
