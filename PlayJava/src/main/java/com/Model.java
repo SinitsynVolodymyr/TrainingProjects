@@ -34,8 +34,8 @@ public class Model {
 
     public static int rand(int minValueInput, int maxValueInput){
         Random randObj = new Random();
-        int randRange = maxValueInput - minValueInput + 1;
-        int result = randObj.nextInt(randRange) + minValueInput;
+        int randRange = maxValueInput - minValueInput - 1;
+        int result = randObj.nextInt(randRange) + minValueInput + 1;
         return result;
     }
 
