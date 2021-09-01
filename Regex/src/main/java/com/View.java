@@ -4,10 +4,20 @@ import java.util.Locale;
 
 public class View {
 
+    private Land land = Land.EN;
+
+    public View() {
+    }
+
+    public View(Land land) {
+        this.land = land;
+    }
+
 
     enum Land{
 
-        EN(new Locale("en")),UA(new Locale("UA","ua"));
+        EN(new Locale("en")),
+        UA(new Locale("UA","ua"));
 
         private Locale locale;
 
