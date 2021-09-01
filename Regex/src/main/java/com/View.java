@@ -14,6 +14,11 @@ public class View {
     }
 
 
+
+    public Land getLand() {
+        return land;
+    }
+
     enum Land{
 
         EN(new Locale("en")),
