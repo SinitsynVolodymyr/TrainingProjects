@@ -1,5 +1,6 @@
 package com;
 
+import com.view.View;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

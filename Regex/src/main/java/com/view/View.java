@@ -1,4 +1,4 @@
-package com;
+package com.view;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -60,6 +60,11 @@ public class View {
         print(strLine.toString());
     }
 
+    public void printWithLand(String key){
+        String strLine = bundle.getString(key);
+        print(strLine);
+    }
+
     /**
      * Gets the locale
      * @return
@@ -69,12 +74,20 @@ public class View {
     }
 
     /**
+     * Gets the bundle
+     * @return
+     */
+    public ResourceBundle getBundle() {
+        return bundle;
+    }
+
+    /**
      * The object that characterizes a local
      * @author SinitsynVolodymyr
      * @version 0.0.1
      * @since 0.0.1
      */
-    enum Land{
+    public enum Land{
         /**
          * List of local
          */
