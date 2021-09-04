@@ -1,7 +1,16 @@
 package com.view;
 
+/**
+ * The object that characterizes a message request to user
+ * @author SinitsynVolodymyr
+ * @version 0.0.1
+ * @since 0.0.1
+ */
 public enum MessageRequest {
 
+    /**
+     * Request list
+     */
     INPUT_SURNAME_FORMAT(
             new String[]{"input.data", "input.surname", "input.format"}
             ,"format.surname"),
@@ -52,19 +61,33 @@ public enum MessageRequest {
             ,"format.address.flatNum"),
     ;
 
+    /** The sequence of bundle keys */
     private String keys[];
+    /** The regex expression */
     private String format;
 
-
+    /**
+     * Constructor of MessageRequest
+     * @param keys - The sequence of bundle keys
+     * @param format - The regex expression
+     */
     MessageRequest(String[] keys, String format) {
         this.keys = keys;
         this.format = format;
     }
 
+    /**
+     * Gets the sequence of bundle keys
+     * @return - Array of keys
+     */
     public String[] getKeys() {
         return keys;
     }
 
+    /**
+     * Gets the regex expression
+     * @return - The regex expression
+     */
     public String getFormat() {
         return format;
     }
