@@ -4,6 +4,9 @@ import com.view.View;
 
 /**
  * The object of the program start
+ * @author SinitynVolodymyr
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public class Regex {
 
