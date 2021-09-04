@@ -1,7 +1,14 @@
 package com;
 
+/**
+ * The result of registration user
+ * @author SinitsynVolodymyr
+ * @version 0.0.1
+ * @since 0.0.1
+ */
 public class User {
 
+    /** The necessary user model fields */
     String surname;
     String name;
     String patronymic;
@@ -16,6 +23,9 @@ public class User {
     String city;
     Address address;
 
+    /**
+     * The simple constructor
+     */
     public User() {
         this.address = new Address();
     }
@@ -137,6 +147,9 @@ public class User {
     }
 
 
+    /**
+     * The user address object
+     */
     public class Address{
         private String index;
         private String street;
