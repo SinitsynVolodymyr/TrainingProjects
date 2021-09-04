@@ -1,5 +1,7 @@
-package com;
+package com.controller;
 
+import com.model.Model;
+import com.model.User;
 import com.view.MessageRequest;
 import com.view.View;
 

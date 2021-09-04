@@ -1,5 +1,7 @@
 package com;
 
+import com.controller.Controller;
+import com.model.Model;
 import com.view.View;
 
 /**

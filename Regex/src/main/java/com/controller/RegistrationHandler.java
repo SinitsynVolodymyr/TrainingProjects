@@ -1,5 +1,6 @@
-package com;
+package com.controller;
 
+import com.model.Model;
 import com.view.MessageRequest;
 import com.view.View;
 import com.view.WrongRequest;

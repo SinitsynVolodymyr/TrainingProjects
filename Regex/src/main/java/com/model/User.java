@@ -1,4 +1,4 @@
-package com;
+package com.model;
 
 /**
  * The result of registration user
