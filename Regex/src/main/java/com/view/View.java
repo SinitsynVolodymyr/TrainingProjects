@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 /**
  * The view class from MVC model
  * @author SinitsynVolodymyr
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 public class View {
@@ -49,7 +49,7 @@ public class View {
 
     /**
      * Constructs the concatenation message by using bungle and shows it to user
-     * @param keys
+     * @param keys - keys of bundle
      */
     public void printWithLand(String[] keys){
         StringBuffer strLine = new StringBuffer();
@@ -60,6 +60,10 @@ public class View {
         print(strLine.toString());
     }
 
+    /**
+     * Shows a bundle message
+     * @param key - key of bundle
+     */
     public void printWithLand(String key){
         String strLine = bundle.getString(key);
         print(strLine);
@@ -67,7 +71,7 @@ public class View {
 
     /**
      * Gets the locale
-     * @return
+     * @return - current locale
      */
     public Land getLand() {
         return land;
@@ -75,7 +79,7 @@ public class View {
 
     /**
      * Gets the bundle
-     * @return
+     * @return - The current ResourceBundle
      */
     public ResourceBundle getBundle() {
         return bundle;
@@ -109,7 +113,7 @@ public class View {
 
         /**
          * Gets the current local
-         * @return
+         * @return - The current local
          */
         public Locale getLocale() {
             return locale;
