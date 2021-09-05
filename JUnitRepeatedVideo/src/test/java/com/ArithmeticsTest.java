@@ -4,10 +4,10 @@ import org.junit.*;
 
 public class ArithmeticsTest {
 
-    Arithmetics a;
+    static Arithmetics a;
 
-    @Before
-   public void runBefore(){
+    @BeforeClass
+   public static void runBefore(){
         a = new Arithmetics();
         System.out.println("Arithmetic create!");
     }
