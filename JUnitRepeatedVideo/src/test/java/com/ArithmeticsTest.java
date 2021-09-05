@@ -2,6 +2,7 @@ package com;
 
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.Timeout;
 
 public class ArithmeticsTest {
 
@@ -9,6 +10,9 @@ public class ArithmeticsTest {
 
     @Rule
     public final ExpectedException exp = ExpectedException.none();
+
+    @Rule
+    public final Timeout time = new Timeout(1000);
 
     @BeforeClass
    public static void runBefore(){
@@ -69,5 +73,11 @@ public class ArithmeticsTest {
     public void testN(){
             a.div(3, 0);
     }
+
+    @Test
+    public void testN2(){
+        a.div(3, 0);
+    }
+
 
 }
