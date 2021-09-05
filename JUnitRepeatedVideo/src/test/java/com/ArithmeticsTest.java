@@ -42,6 +42,19 @@ public class ArithmeticsTest {
 
     }
 
+    @Test
+    public void testDivException_NOT_RIGHT(){
+        try{
+            Integer.parseInt("1a");
+            Assert.fail();
+        }catch (Exception e){ }
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testDivException(){
+            Integer.parseInt("1a");
+    }
+
 
 
 }
