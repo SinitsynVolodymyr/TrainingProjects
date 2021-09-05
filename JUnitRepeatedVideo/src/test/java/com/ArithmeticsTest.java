@@ -1,10 +1,14 @@
 package com;
 
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 
 public class ArithmeticsTest {
 
     static Arithmetics a;
+
+    @Rule
+    public final ExpectedException exp = ExpectedException.none();
 
     @BeforeClass
    public static void runBefore(){
@@ -53,6 +57,12 @@ public class ArithmeticsTest {
     @Test(expected = NumberFormatException.class)
     public void testDivException(){
             Integer.parseInt("1a");
+    }
+
+    @Test
+    public void testDivException2(){
+        exp.expect(NumberFormatException.class);
+        Integer.parseInt("1a");
     }
 
     @Test(timeout = 1000)
