@@ -55,6 +55,9 @@ public class ArithmeticsTest {
             Integer.parseInt("1a");
     }
 
-
+    @Test(timeout = 1000)
+    public void testN(){
+            a.div(3, 0);
+    }
 
 }
