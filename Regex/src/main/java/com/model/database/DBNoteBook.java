@@ -2,6 +2,9 @@ package com.model.database;
 
 /**
  * Emulation of database process
+ * @author SinitsynVolodymyr
+ * @version 0.0.1
+ * @since 0.0.3
  */
 public enum DBNoteBook {
     /** The fields of database */
