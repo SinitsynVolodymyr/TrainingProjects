@@ -59,6 +59,9 @@ public enum MessageRequest {
     INPUT_FLATNUM_FORMAT(
             new String[]{"input.data", "input.address.flatNum", "input.format"}
             ,"format.address.flatNum"),
+    INPUT_LOGIN_FORMAT(
+            new String[]{"input.data", "input.login", "input.format"}
+            ,"format.login"),
     ;
 
     /** The sequence of bundle keys */
