@@ -10,6 +10,7 @@ public class User {
 
     /** The necessary user model fields */
     String surname;
+    String login;
     String name;
     String patronymic;
     String nick;
@@ -28,6 +29,14 @@ public class User {
      */
     public User() {
         this.address = new Address();
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getCity() {

@@ -6,20 +6,27 @@ import java.util.List;
 /**
  * The model class from MVC model
  * @author SinitsynVolodymyr
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 public class Model {
-    /** List of registered users */
-    List<User> userList = new ArrayList<>();
+    /** The users NoteBook */
+    private NoteBook noteBook;
 
     /**
-     * Add user object to model
-     * @param user - The added user
+     * Constructor of Model
+     * Init a NoteBook object
      */
-    public void addUser(User user){
-        userList.add(user);
+    public Model() {
+        this.noteBook = new NoteBook();
     }
 
+    /**
+     * Gets a NoteBook object
+     * @return NoteBook with user list inside
+     */
+    public NoteBook getNoteBook() {
+        return noteBook;
+    }
 
 }

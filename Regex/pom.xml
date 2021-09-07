@@ -6,7 +6,7 @@
 
     <groupId>TrainMySkill</groupId>
     <artifactId>Regex</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.3</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
