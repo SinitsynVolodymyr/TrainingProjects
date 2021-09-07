@@ -36,7 +36,7 @@ public class Controller {
 
     /**
      * The user request handler method.
-     * This method creates user object and adds this user in MVC model
+     * This method gets user object and adds this user in MVC model
      */
     public void processUser(){
         Scanner sc = new Scanner(System.in);

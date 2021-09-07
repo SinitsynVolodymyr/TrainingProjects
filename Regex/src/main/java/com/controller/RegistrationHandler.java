@@ -35,6 +35,11 @@ public class RegistrationHandler {
         this.model = model;
     }
 
+    /**
+     * This sends scanner request to user
+     * @param sc - Scanner
+     * @return registered user
+     */
     public User registerUser(Scanner sc){
         User user = new User();
 
@@ -83,6 +88,12 @@ public class RegistrationHandler {
         return userRequest;
     }
 
+    /**
+     * The input user's login request registration handler
+     * @param sc - The console scanner
+     * @param mess - The message request to user
+     * @return The right user's login answer
+     */
     private String inputLogin(Scanner sc, MessageRequest mess){
         String login = "";
         while (DBNoteBook.isConsistLogin(login = input(sc,mess))){
