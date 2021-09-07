@@ -1,5 +1,9 @@
 package com;
 
+import java.io.EOFException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  * Nothing
  */
@@ -1062,5 +1066,270 @@ class App19 {
             System.err.print(" 7");     // заходим всегда
         }
         System.err.print(" 8");         // не заходим - выполнение НЕ в норме
+    }
+}
+
+
+ class App61 {
+    public static void main(String[] args) {
+        //throw new Exception();
+    }
+}
+
+ class App62 {
+    public static void main(String[] args) throws IOException {
+        //throw new Exception(); // тут ошибка компиляции
+    }
+}
+
+class App63 {
+    public static void main(String[] args) throws Exception { // предупреждаем о Exception
+        throw new Exception(); // и кидаем Exception
+    }
+}
+
+class App64 {
+    public static void main(String[] args) throws Throwable { // предупреждаем "целом" Throwable
+        throw new Exception(); // а кидаем только Exception
+    }
+}
+
+class App65 {
+    public static void main(String[] args) throws Exception { // пугаем
+        // но ничего не бросаем
+    }
+}
+
+ class App66 {
+    public static void main(String[] args) {
+        //f(); // тут ошибка компиляции
+    }
+
+    public static void f() throws Exception {
+    }
+}
+
+ class App67 {
+    // они пугают целым Throwable
+    public static void main(String[] args) throws Throwable {
+        f();
+    }
+    // хотя мы пугали всего-лишь Exception
+    public static void f() throws Exception {
+    }
+}
+
+class App68 {
+    public static byte[] method(String url) throws IOException {
+        return "<html><body>Nothing! It's stub!</body></html>".getBytes();
+    }
+}
+
+class App69 {
+    public static void main(String[] args) {
+        f();
+    }
+    public static void f() throws RuntimeException {
+    }
+}
+
+ class App70 {
+    public static void main(String[] args) throws EOFException, FileNotFoundException {
+        if (System.currentTimeMillis() % 2 == 0) {
+            throw new EOFException();
+        } else {
+            throw new FileNotFoundException();
+        }
+    }
+}
+
+class App71 {
+    // пугаем ОБОИМИ исключениями
+    public static void main(String[] args) throws EOFException, FileNotFoundException {
+        f0();
+        f1();
+    }
+    public static void f0() throws EOFException {}
+    public static void f1() throws FileNotFoundException {}
+}
+
+ class App72 {
+    // пугаем ПРЕДКОМ исключений
+    public static void main(String[] args) throws IOException {
+        if (System.currentTimeMillis() % 2 == 0) {
+            throw new EOFException();
+        } else {
+            throw new FileNotFoundException();
+        }
+    }
+}
+
+class App73 {
+    // пугаем ПРЕДКОМ исключений
+    public static void main(String[] args) throws IOException {
+        f0();
+        f1();
+    }
+    public static void f0() throws EOFException {}
+    public static void f1() throws FileNotFoundException {}
+}
+
+class App74 {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        f0();
+        f1();
+        f2();
+    }
+    public static void f0() throws EOFException {}
+    public static void f1() throws FileNotFoundException {}
+    public static void f2() throws InterruptedException {}
+}
+
+class App75 {
+    public static void main(String[] args) {
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // ...
+        }
+    }
+}
+
+class App76 {
+    public static void main(String[] args) {
+        try {
+            throw new Exception();
+        } catch (Throwable e) {
+            // ...
+        }
+    }
+}
+
+class App77 {
+    public static void main(String[] args) {
+        try {
+            //throw new Throwable();
+        } catch (Exception e) {
+            // ...
+        }
+    }
+}
+
+ class App78 {
+    public static void main(String[] args) {
+        try {
+            //throw new Exception();
+        } catch (Error e) {
+            // ...
+        }
+    }
+}
+
+class App79 {
+    // EOFException перехватили catch-ом, им не пугаем
+    public static void main(String[] args) throws FileNotFoundException {
+        try {
+            if (System.currentTimeMillis() % 2 == 0) {
+                throw new EOFException();
+            } else {
+                throw new FileNotFoundException();
+            }
+        } catch (EOFException e) {
+            // ...
+        }
+    }
+}
+
+class App80 {
+    // пугаем Exception
+    public static void main(String[] args) throws Exception {
+        Throwable t = new Exception(); // и лететь будет Exception
+        //throw t; // но тут ошибка компиляции
+    }
+}
+
+class App81 {
+    public static void main(String[] args) throws Exception {
+        Object ref = "Hello!";  // ref указывает на строку
+       // char c = ref.charAt(0); // но тут ошибка компиляции
+    }
+}
+
+class App82 {
+    public static void f0(Throwable t) throws Exception {
+        //throw t;
+    }
+    public static void f1(Object ref){
+        //char c = ref.charAt(0);
+    }
+}
+
+class App83 {
+    // пугаем Exception
+    public static void main(String[] args) throws Exception {
+        try {
+            Throwable t = new Exception(); // и лететь будет Exception
+            //throw t; // но тут ошибка компиляции
+        } catch (Exception e) {
+            System.out.println("Перехвачено!");
+        }
+    }
+}
+
+class App84 {
+    // ТЕПЕРЬ пугаем Throwable
+    public static void main(String[] args) throws Throwable {
+        try {
+            Throwable t = new Exception(); // а лететь будет Exception
+            throw t;
+        } catch (Exception e) { // и мы перехватим Exception
+            System.out.println("Перехвачено!");
+        }
+    }
+}
+
+class Parent1 {
+    // предок пугает IOException и InterruptedException
+    public void f() throws IOException, InterruptedException {}
+}
+
+class Child1 extends Parent1 {
+    // а потомок пугает только потомком IOException
+    @Override
+    public void f() throws FileNotFoundException {}
+}
+
+class Parent2 {
+    public void f() throws IOException, InterruptedException, Exception {}
+}
+
+class ChildB extends Parent2 {
+    @Override
+    public void f() throws Exception {}
+}
+
+class Parent3 {
+    // предок пугает Exception
+    public void f() throws Exception {}
+}
+
+class Child2 extends Parent3 {
+    // потомок расширил Exception до Throwable
+    //public void f() throws Throwable {}
+}
+
+class Demo {
+    public static void test(Parent3 ref) {
+        // тут все компилируется, Parent.f() пугает Exception и мы его ловим catch
+        try {
+            ref.f();
+        } catch(Exception e) {}
+    }
+}
+
+class App85 {
+    public static void main(String[] args) {
+        // тут все компилируется, Demo.test хотел Parent и мы дали ему подтип - Child
+        Demo.test(new Child2());
     }
 }
