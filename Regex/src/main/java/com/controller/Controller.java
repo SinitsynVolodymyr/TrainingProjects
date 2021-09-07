@@ -60,7 +60,8 @@ public class Controller {
         user.setAddressHouseNum(regHandler.input(sc,MessageRequest.INPUT_HOUSENUM_FORMAT));
         user.setAddressFlatNum(regHandler.input(sc,MessageRequest.INPUT_FLATNUM_FORMAT));
         */
-        model.addUser(user);
+
+        model.getNoteBook().addUser(user);
     }
 
 }
