@@ -40,10 +40,13 @@ public class Controller {
         Scanner sc = new Scanner(System.in);
         User user = new User();
 
-        user.setSurname(regHandler.input(sc,MessageRequest.INPUT_SURNAME_FORMAT));
+
         user.setName(regHandler.input(sc,MessageRequest.INPUT_FIRSTNAME_FORMAT));
-        user.setPatronymic(regHandler.input(sc,MessageRequest.INPUT_PATRONYMIC_FORMAT));
         user.setNick(regHandler.input(sc,MessageRequest.INPUT_NICK_FORMAT));
+
+        /* //Disable unimportant fields
+        user.setSurname(regHandler.input(sc,MessageRequest.INPUT_SURNAME_FORMAT));
+        user.setPatronymic(regHandler.input(sc,MessageRequest.INPUT_PATRONYMIC_FORMAT));
         user.setComment(regHandler.input(sc,MessageRequest.INPUT_COMMENT_FORMAT));
         user.setGroupName(regHandler.input(sc,MessageRequest.INPUT_GROUP_FORMAT));
         user.setHomePhone(regHandler.input(sc,MessageRequest.INPUT_HOMEPHONE_FORMAT));
@@ -56,7 +59,7 @@ public class Controller {
         user.setAddressStreet(regHandler.input(sc,MessageRequest.INPUT_STREET_FORMAT));
         user.setAddressHouseNum(regHandler.input(sc,MessageRequest.INPUT_HOUSENUM_FORMAT));
         user.setAddressFlatNum(regHandler.input(sc,MessageRequest.INPUT_FLATNUM_FORMAT));
-
+        */
         model.addUser(user);
     }
 
