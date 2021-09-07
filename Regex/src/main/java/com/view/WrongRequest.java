@@ -8,7 +8,8 @@ package com.view;
 public enum WrongRequest {
 
     /** Key of wrong request */
-    WRONG_REQUEST("input.wrong"),;
+    WRONG_REQUEST("input.wrong"),
+    NOT_UNIQUE_LOGIN("input.notUniqueLogin");
 
     /** The bundle key */
     String keys;
