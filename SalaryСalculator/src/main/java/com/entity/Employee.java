@@ -8,7 +8,7 @@ public final class Employee {
     final private Date birthday;
     final private Date inputWorkDate;
 
-    private Employee(String name, Date birthday, Date inputWork) {
+    public Employee(String name, Date birthday, Date inputWork) {
         this.name = name;
         this.birthday = new Date(birthday.getTime());
         this.inputWorkDate = new Date(inputWork.getTime());
