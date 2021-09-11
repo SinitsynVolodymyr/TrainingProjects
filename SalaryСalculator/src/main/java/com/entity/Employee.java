@@ -6,12 +6,12 @@ public final class Employee {
 
     final private String name;
     final private Date birthday;
-    final private Date inputWork;
+    final private Date inputWorkDate;
 
     private Employee(String name, Date birthday, Date inputWork) {
         this.name = name;
         this.birthday = new Date(birthday.getTime());
-        this.inputWork = new Date(inputWork.getTime());
+        this.inputWorkDate = new Date(inputWork.getTime());
     }
 
     public String getName() {
@@ -22,7 +22,25 @@ public final class Employee {
         return new Date(birthday.getTime());
     }
 
-    public Date getInputWork() {
-        return new Date(inputWork.getTime());
+    public Date getInputWorkDate() {
+        return new Date(inputWorkDate.getTime());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee temp = (Employee) o;
+        return name.equals(temp.name) && birthday.equals(temp.birthday) && inputWorkDate.equals(temp.inputWorkDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int simpleNumeric = 31;
+        return (name.hashCode()
+                * simpleNumeric
+                + birthday.hashCode())
+                * simpleNumeric
+                + inputWorkDate.hashCode();
     }
 }
