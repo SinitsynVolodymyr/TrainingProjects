@@ -1,0 +1,46 @@
+package com.entity;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class DepartmentTest {
+
+    Department department1;
+    Department department2;
+
+    @BeforeEach
+    void init(){
+        Employee natasha1 = new Employee("Natasha", new Date(1284237214), new Date(1599856414));
+        Employee misha1 = new Employee("Misha", new Date(1315773214), new Date(1442003614));
+        Employee natasha2 = new Employee("Natasha", new Date(1284237214), new Date(1599856414));
+        Employee misha2 = new Employee("Misha", new Date(1315773214), new Date(1442003614));
+
+        department1 = new Department("dep");
+        department1.addEmployee(natasha1);
+        department1.addEmployee(misha1);
+
+        department2 = new Department("dep");
+        department2.addEmployee(natasha2);
+        department2.addEmployee(misha2);
+
+    }
+
+    @Test
+    void testEquals() {
+        assertTrue(department1.equals(department1));
+        assertTrue(department1.equals(department2));
+        assertTrue(department2.equals(department1));
+    }
+
+    @Test
+    void testHashCode() {
+        assertEquals(department1.hashCode(),department1.hashCode());
+        assertEquals(department1.hashCode(),department2.hashCode());
+        assertEquals(department2.hashCode(),department1.hashCode());
+    }
+}
