@@ -4,9 +4,9 @@ import java.util.Date;
 
 public final class Employee {
 
-    final String name;
-    final Date birthday;
-    final Date inputWork;
+    final private String name;
+    final private Date birthday;
+    final private Date inputWork;
 
     private Employee(String name, Date birthday, Date inputWork) {
         this.name = name;
