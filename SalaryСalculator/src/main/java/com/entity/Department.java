@@ -26,7 +26,7 @@ public class Department {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Department that = (Department) o;
-        return name.equals(that.name) && Objects.equals(employeeList, that.employeeList);
+        return name.equals(that.name) && employeeList.equals(that.employeeList);
     }
 
     @Override
