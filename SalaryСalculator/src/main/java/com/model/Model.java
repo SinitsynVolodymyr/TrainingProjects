@@ -12,9 +12,18 @@ public class Model {
 
     private List<OthersEmployee> others = new ArrayList<>();
     private List<Manager> managerList = new ArrayList<>();
+    private boolean isOnlyCompanyFund;
 
     public Model(List<OthersEmployee> others, List<Manager> managerList) {
         this.others = others;
         this.managerList = managerList;
+    }
+
+    public boolean isOnlyCompanyFund() {
+        return isOnlyCompanyFund;
+    }
+
+    public void setOnlyCompanyFund(boolean onlyCompanyFund) {
+        isOnlyCompanyFund = onlyCompanyFund;
     }
 }
