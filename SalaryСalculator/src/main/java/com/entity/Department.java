@@ -1,13 +1,15 @@
 package com.entity;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import com.entity.empl.Employee;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Department {
 
     private String name;
-    private Set<Employee> employeeList = new HashSet<>();
+    private List<Employee> employeeList = new ArrayList<>();
 
     public Department(String name) {
         this.name = name;
@@ -17,7 +19,7 @@ public class Department {
         employeeList.add(employee);
     }
 
-    public Set<Employee> getEmployeeList() {
+    public List<Employee> getEmployeeList() {
         return employeeList;
     }
 

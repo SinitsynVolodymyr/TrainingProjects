@@ -1,5 +1,7 @@
 package com.entity;
 
+import com.entity.empl.Employee;
+import com.entity.empl.OthersEmployee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,10 +17,10 @@ class DepartmentTest {
 
     @BeforeEach
     void init(){
-        Employee natasha1 = new Employee("Natasha", new Date(1284237214), new Date(1599856414));
-        Employee misha1 = new Employee("Misha", new Date(1315773214), new Date(1442003614));
-        Employee natasha2 = new Employee("Natasha", new Date(1284237214), new Date(1599856414));
-        Employee misha2 = new Employee("Misha", new Date(1315773214), new Date(1442003614));
+        Employee natasha1 = new OthersEmployee("Natasha","Director", new Date(1284237214), new Date(1599856414));
+        Employee misha1 = new OthersEmployee("Misha","Developer", new Date(1315773214), new Date(1442003614));
+        Employee natasha2 = new OthersEmployee("Natasha","Director", new Date(1284237214), new Date(1599856414));
+        Employee misha2 = new OthersEmployee("Misha","Developer", new Date(1315773214), new Date(1442003614));
 
         department1 = new Department("dep");
         department1.addEmployee(natasha1);
