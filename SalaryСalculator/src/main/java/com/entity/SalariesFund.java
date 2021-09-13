@@ -1,6 +1,7 @@
 package com.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class SalariesFund {
 
@@ -33,5 +34,20 @@ public class SalariesFund {
         BALANCED,UNBALANCED;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SalariesFund fund = (SalariesFund) o;
+        return amount.equals(fund.amount) && type == fund.type;
+    }
 
+    @Override
+    public int hashCode() {
+        int simpleNumeric = 31;
+        return (amount.hashCode()
+                * simpleNumeric
+                + type.hashCode())
+                * simpleNumeric;
+    }
 }
