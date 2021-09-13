@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class Employee {
+public class Employee {
 
     protected String name;
     protected Date birthday;

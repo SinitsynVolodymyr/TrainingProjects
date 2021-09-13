@@ -4,18 +4,28 @@ import com.entity.empl.Employee;
 
 import java.util.*;
 
+@Deprecated
 public class Company {
 
     private String name;
     private List<Department> departmentList = new ArrayList<>();
     private Employee director;
     private SalariesFund fund;
+    private boolean isOnlyCompanyFund;
 
     public Company(String name, SalariesFund fund) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(fund);
         this.name = name;
         this.fund = fund;
+    }
+
+    public boolean isOnlyCompanyFund() {
+        return isOnlyCompanyFund;
+    }
+
+    public void setOnlyCompanyFund(boolean companyFund) {
+        isOnlyCompanyFund = companyFund;
     }
 
     public String getName() {
