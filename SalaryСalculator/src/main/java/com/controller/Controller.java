@@ -3,9 +3,14 @@ package com.controller;
 import com.entity.Department;
 import com.entity.SalariesFund;
 import com.model.Model;
+import com.model.Payroll;
 import com.view.View;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -27,6 +32,9 @@ public class Controller {
         model.setFund(companyFund);
         initDepartmentTypeOfFund(scanner, model.getDepartmentList());
         model.setFundTypeForOthers(initOthersTypeOfFund(scanner));
+
+        Payroll payroll = model.calculatePayroll(getUserCalcDateAnswer(scanner));
+        view.printPayroll(payroll);
     }
 
     public void initDepartmentTypeOfFund(Scanner sc, List<Department> departmentList){
@@ -70,6 +78,29 @@ public class Controller {
             view.print(View.yesNoQuestionMessage);
         }
         return false;
+    }
+
+    public Date getUserCalcDateAnswer(Scanner sc){
+        view.print(View.inputCalcDateMessage);
+        String input = "";
+        Date date = null;
+        boolean isNotExceptionParse = false;
+        while (!isNotExceptionParse) {
+            while (!(sc.hasNext() && ((input = sc.next()).matches(View.inputCalcDateRegex)))) {
+                view.print(View.wrongInputMessage);
+                view.print(View.inputCalcDateMessage);
+            }
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            isNotExceptionParse= true;
+            try {
+                date = formatter.parse(input);
+            } catch (ParseException e) {
+                view.print(View.wrongInputMessage);
+                view.print(View.inputCalcDateMessage);
+            }
+        }
+
+        return date;
     }
 
     public BigDecimal getUserDoubleValueAnswer(Scanner sc){
