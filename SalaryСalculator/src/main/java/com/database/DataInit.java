@@ -1,10 +1,12 @@
 package com.database;
 
 import com.entity.ManagerDepartment;
+import com.entity.OthersDepartment;
 import com.entity.empl.Employee;
 import com.entity.empl.Manager;
 import com.entity.empl.OthersEmployee;
 import com.exception.SalaryIsTooSmallException;
+import com.view.View;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -59,14 +61,14 @@ public class DataInit {
         return result;
     }
 
-    public static List<OthersEmployee> initOthers() throws SalaryIsTooSmallException {
+    public static OthersDepartment initOthers() throws SalaryIsTooSmallException {
 
-        List<OthersEmployee> result = new ArrayList<>();
+        OthersDepartment result = new OthersDepartment(View.othersName);
 
-        result.add(new OthersEmployee("БОНДАРЧУК",new Date(500819584), new Date(1472733215),new BigDecimal("45000"),"Director"));
-        result.add(new OthersEmployee("ДЕРКАЧ",new Date(503411584), new Date(1472733215),new BigDecimal("3500"),"Consultant"));
-        result.add(new OthersEmployee("СЕРГІЄНКО",new Date(495549184), new Date(1472733215),new BigDecimal("2300"),"Secretary"));
-        result.add(new OthersEmployee("БОДНАР",new Date(832077184), new Date(1472733215),new BigDecimal("8600"),"HR"));
+        result.addEmployee(new OthersEmployee("БОНДАРЧУК",new Date(500819584), new Date(1472733215),new BigDecimal("45000"),"Director"));
+        result.addEmployee(new OthersEmployee("ДЕРКАЧ",new Date(503411584), new Date(1472733215),new BigDecimal("3500"),"Consultant"));
+        result.addEmployee(new OthersEmployee("СЕРГІЄНКО",new Date(495549184), new Date(1472733215),new BigDecimal("2300"),"Secretary"));
+        result.addEmployee(new OthersEmployee("БОДНАР",new Date(832077184), new Date(1472733215),new BigDecimal("8600"),"HR"));
 
         return result;
     }

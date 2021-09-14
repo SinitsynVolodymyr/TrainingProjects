@@ -1,6 +1,7 @@
 package com.model;
 
 import com.entity.ManagerDepartment;
+import com.entity.OthersDepartment;
 import com.entity.SalariesFund;
 import com.entity.empl.Employee;
 import com.entity.empl.OthersEmployee;
@@ -16,13 +17,13 @@ import java.util.Objects;
 
 public class Model {
 
-    private List<OthersEmployee> others = new ArrayList<>();
+    private OthersDepartment others;
     private List<ManagerDepartment> departmentList = new ArrayList<>();
     private SalariesFund fund;
     private SalariesFund.FundType fundTypeForOthers = SalariesFund.FundType.BALANCED;
     private MathContext mc = new MathContext(20, RoundingMode.FLOOR);
 
-    public Model(List<OthersEmployee> others, List<ManagerDepartment> departmentList) {
+    public Model(OthersDepartment others, List<ManagerDepartment> departmentList) {
         Objects.requireNonNull(others);
         Objects.requireNonNull(departmentList);
         this.others = others;
@@ -58,7 +59,7 @@ public class Model {
         for (ManagerDepartment depTmp: departmentList){
             result.personList.addAll(calcDepartment(depTmp));
         }
-        result.personList.addAll(calcOthers(others,othersSalary,fundTypeForOthers));
+        result.personList.addAll(calcOthers(others.getEmployeeList(),othersSalary,fundTypeForOthers));
 
         return result;
     }
@@ -147,7 +148,7 @@ public class Model {
 
     public void addOthersEmployee(OthersEmployee other){
         Objects.requireNonNull(other);
-        others.add(other);
+        others.addEmployee(other);
     }
 
     public void addDepartment(ManagerDepartment department){
@@ -164,14 +165,14 @@ public class Model {
             }
         }
 
-        for (OthersEmployee otherTmp: others){
+        for (OthersEmployee otherTmp: others.getEmployeeList()){
             result = result.add(otherTmp.getSalary());
         }
 
         return result;
     }
 
-    public List<OthersEmployee> getOthers() {
+    public OthersDepartment getOthers() {
         return others;
     }
 
