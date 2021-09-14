@@ -48,41 +48,57 @@ public class ManagerDepartment extends Department<Employee>{
         BigDecimal amount = this.getFund().getAmount();
 
         if (this.getFund().getType().equals(SalariesFund.FundType.BALANCED)){
-            int amountParts = this.getEmployeeList().size()+1;
-            BigDecimal employeeSalary = amount.divide(new BigDecimal(amountParts), Model.mc);
-            PayForOnePerson payForOneManager = new PayForOnePerson(this.getManager(),
-                    employeeSalary.add(this.getManager().getSalary()));
-            payForOneManager.setDepartment(this);
-            payForOneManager.setPremium(employeeSalary);
-            personList.add(payForOneManager);
-            for (Employee employee: this.getEmployeeList()){
-                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, employeeSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartment(this);
-                payForOnePerson.setPremium(employeeSalary);
-                personList.add(payForOnePerson);
-            }
+            personList.addAll(calculateBalancedSalary());
         }else if (this.getFund().getType().equals(SalariesFund.FundType.UNBALANCED)){
-            BigDecimal minSalaryDep = this.getRate();
-
-            BigDecimal manPart = this.getManager().getSalary().divide(minSalaryDep,Model.mc);
-            BigDecimal manSalary = manPart.multiply(amount);
-            PayForOnePerson payForOneManager = new PayForOnePerson(this.getManager(),
-                    manSalary.add(this.getManager().getSalary()));
-            payForOneManager.setDepartment(this);
-            payForOneManager.setPremium(manSalary);
-            personList.add(payForOneManager);
-
-            for (Employee employee: this.getEmployeeList()){
-                BigDecimal empPart = employee.getSalary().divide(minSalaryDep,Model.mc);
-                BigDecimal empSalary = empPart.multiply(amount);
-                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartment(this);
-                payForOnePerson.setPremium(empSalary);
-                personList.add(payForOnePerson);
-            }
+            personList.addAll(calculateUnbalancedSalary());
         }
 
         return personList;
+    }
+
+    private PayForOnePerson initPayAccount(Employee employee, BigDecimal empPremium){
+        PayForOnePerson result = new PayForOnePerson(employee,
+                empPremium.add(employee.getSalary()));
+        result.setDepartment(this);
+        result.setPremium(empPremium);
+        return result;
+    }
+
+    private List<PayForOnePerson> calculateBalancedSalary(){
+        List<PayForOnePerson> result = new ArrayList<>();
+        BigDecimal empPremium = calculateBalancedPremiumValue();
+        result.add(initPayAccount(this.getManager(),empPremium));
+        for (Employee employee: this.getEmployeeList()){
+            result.add(initPayAccount(employee,empPremium));
+        }
+        return result;
+    }
+
+    private BigDecimal calculateBalancedPremiumValue(){
+        BigDecimal amount = this.getFund().getAmount();
+        int amountParts = this.getEmployeeList().size()+1;
+        BigDecimal premium = amount.divide(new BigDecimal(amountParts), Model.mc);
+        return premium;
+    }
+
+    private List<PayForOnePerson> calculateUnbalancedSalary(){
+        List<PayForOnePerson> result = new ArrayList<>();
+
+        Manager manager = this.getManager();
+        BigDecimal manPremium = calculateUnbalancedPremiumValueForEmployee(manager);
+        result.add(initPayAccount(this.getManager(),manPremium));
+
+        for (Employee employee: this.getEmployeeList()){
+            BigDecimal empPremium = calculateUnbalancedPremiumValueForEmployee(employee);
+            result.add(initPayAccount(employee,empPremium));
+        }
+        return result;
+    }
+
+    private BigDecimal calculateUnbalancedPremiumValueForEmployee(Employee employee){
+        BigDecimal manPart = employee.getSalary().divide(this.getRate(),Model.mc);
+        BigDecimal premium = manPart.multiply(this.getFund().getAmount());
+        return premium;
     }
 
 
