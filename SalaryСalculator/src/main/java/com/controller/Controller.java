@@ -77,7 +77,8 @@ public class Controller {
             view.print(View.wrongInputMessage);
             view.print(View.yesNoQuestionMessage);
         }
-        return false;
+        if (input.equalsIgnoreCase("Y")) return true;
+        else return false;
     }
 
     public Date getUserCalcDateAnswer(Scanner sc){
