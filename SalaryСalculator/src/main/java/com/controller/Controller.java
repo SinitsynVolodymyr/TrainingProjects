@@ -22,7 +22,8 @@ public class Controller {
 
     public void userInput(){
         Scanner scanner = new Scanner(System.in);
-        SalariesFund companyFund = initFund(scanner, View.companyName.toLowerCase(Locale.ROOT));
+        BigDecimal minFund = model.getMinFund();
+        SalariesFund companyFund = initFund(scanner, View.companyName.toLowerCase(Locale.ROOT), minFund);
         model.setFund(companyFund);
         initDepartmentTypeOfFund(scanner, model.getDepartmentList());
         model.setFundTypeForOthers(initOthersTypeOfFund(scanner));
@@ -39,8 +40,13 @@ public class Controller {
         return initFundType(sc, View.othersName.toLowerCase(Locale.ROOT));
     }
 
-    public SalariesFund initFund(Scanner sc, String fundName){
-        BigDecimal sizeFund = getUserDoubleValueAnswer(sc);
+    public SalariesFund initFund(Scanner sc, String fundName, BigDecimal minValue){
+        BigDecimal sizeFund = new BigDecimal("0");
+        view.print(String.format(View.minSalaryFundMessageFormat, minValue.toString()));
+        while ((sizeFund = getUserDoubleValueAnswer(sc)).compareTo(minValue)<0){
+            view.print(View.wrongSalaryFundMessage);
+            view.print(String.format(View.minSalaryFundMessageFormat, minValue.toString()));
+        }
         SalariesFund.FundType type = initFundType(sc, fundName);
         return new SalariesFund(sizeFund, type);
     }
