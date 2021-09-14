@@ -1,6 +1,6 @@
 package com.database;
 
-import com.entity.Department;
+import com.entity.ManagerDepartment;
 import com.entity.empl.Employee;
 import com.entity.empl.Manager;
 import com.entity.empl.OthersEmployee;
@@ -14,8 +14,8 @@ import java.util.List;
 public class DataInit {
 
 
-    public static List<Department> initDepartments() throws SalaryIsTooSmallException {
-        List<Department> result = new ArrayList<>();
+    public static List<ManagerDepartment> initDepartments() throws SalaryIsTooSmallException {
+        List<ManagerDepartment> result = new ArrayList<>();
 
         Manager manager1 = new Manager("КОВАЛЕНКО", new Date(811081984), new Date(1536928415),new BigDecimal("8000"));
         manager1.addEmployee(new Employee("БОНДАР", new Date(937312384), new Date(1630499615),new BigDecimal("2000")));
@@ -28,7 +28,7 @@ public class DataInit {
         manager1.addEmployee(new Employee("ГУМЕНЮК", new Date(931955584), new Date(1630499615),new BigDecimal("1300")));
         manager1.addEmployee(new Employee("НАЗАРЕНКО", new Date(934633984), new Date(1630499615),new BigDecimal("1800")));
         manager1.addEmployee(new Employee("МАКАРЕНКО", new Date(939904384), new Date(1630499615),new BigDecimal("4200")));
-        result.add(new Department("Payout", manager1));
+        result.add(new ManagerDepartment("Payout", manager1));
 
         Manager manager2 = new Manager("КОВАЛЕНКО", new Date(811081984), new Date(1536928415),new BigDecimal("12000"));
         manager2.addEmployee(new Employee("БОНДАР", new Date(937312384), new Date(1630499615),new BigDecimal("2000")));
@@ -41,7 +41,7 @@ public class DataInit {
         manager2.addEmployee(new Employee("ГУМЕНЮК", new Date(931955584), new Date(1630499615),new BigDecimal("1300")));
         manager2.addEmployee(new Employee("НАЗАРЕНКО", new Date(934633984), new Date(1630499615),new BigDecimal("1800")));
         manager2.addEmployee(new Employee("МАКАРЕНКО", new Date(939904384), new Date(1630499615),new BigDecimal("4200")));
-        result.add(new Department("Economy", manager2));
+        result.add(new ManagerDepartment("Economy", manager2));
 
         Manager manager3 = new Manager("КОВАЛЕНКО", new Date(811081984), new Date(1536928415),new BigDecimal("22000"));
         manager3.addEmployee(new Employee("БОНДАР", new Date(937312384), new Date(1630499615),new BigDecimal("4200")));
@@ -54,7 +54,7 @@ public class DataInit {
         manager3.addEmployee(new Employee("ГУМЕНЮК", new Date(931955584), new Date(1630499615),new BigDecimal("4500")));
         manager3.addEmployee(new Employee("НАЗАРЕНКО", new Date(934633984), new Date(1630499615),new BigDecimal("2500")));
         manager3.addEmployee(new Employee("МАКАРЕНКО", new Date(939904384), new Date(1630499615),new BigDecimal("3500")));
-        result.add(new Department("Development", manager3));
+        result.add(new ManagerDepartment("Development", manager3));
 
         return result;
     }

@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DepartmentTest {
 
-    Department department1;
-    Department department2;
+    ManagerDepartment department1;
+    ManagerDepartment department2;
 
     @BeforeEach
     void init() throws SalaryIsTooSmallException {
@@ -24,13 +24,13 @@ class DepartmentTest {
         Employee natasha2 = new OthersEmployee("Natasha","Director", new Date(1284237214), new Date(1599856414));
         Employee misha2 = new OthersEmployee("Misha","Developer", new Date(1315773214), new Date(1442003614));
 
-        department1 = new Department("dep"
+        department1 = new ManagerDepartment("dep"
                 , new Manager("jj",new Date(1000), new Date(2000)));
         department1.setFund(new SalariesFund(SalariesFund.FundType.BALANCED));
         department1.addEmployee(natasha1);
         department1.addEmployee(misha1);
 
-        department2 = new Department("dep"
+        department2 = new ManagerDepartment("dep"
                 , new Manager("jj",new Date(1000), new Date(2000)));
         department1.setFund(new SalariesFund(SalariesFund.FundType.BALANCED));
         department2.addEmployee(natasha2);

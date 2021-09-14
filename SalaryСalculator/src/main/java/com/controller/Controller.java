@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.entity.Department;
+import com.entity.ManagerDepartment;
 import com.entity.SalariesFund;
 import com.model.Model;
 import com.model.Payroll;
@@ -37,8 +37,8 @@ public class Controller {
         view.printPayroll(payroll);
     }
 
-    public void initDepartmentTypeOfFund(Scanner sc, List<Department> departmentList){
-        for (Department depTmp: departmentList) {
+    public void initDepartmentTypeOfFund(Scanner sc, List<ManagerDepartment> departmentList){
+        for (ManagerDepartment depTmp: departmentList) {
             SalariesFund.FundType fundType = initFundType(sc, depTmp.getName().toLowerCase(Locale.ROOT));
             depTmp.setFund(new SalariesFund(fundType));
         }

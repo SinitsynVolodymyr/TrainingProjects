@@ -1,18 +1,14 @@
 package com.model;
 
-import com.entity.Company;
-import com.entity.Department;
+import com.entity.ManagerDepartment;
 import com.entity.SalariesFund;
 import com.entity.empl.Employee;
-import com.entity.empl.Manager;
 import com.entity.empl.OthersEmployee;
 import com.view.View;
 
-import javax.print.attribute.standard.PresentationDirection;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,12 +17,12 @@ import java.util.Objects;
 public class Model {
 
     private List<OthersEmployee> others = new ArrayList<>();
-    private List<Department> departmentList = new ArrayList<>();
+    private List<ManagerDepartment> departmentList = new ArrayList<>();
     private SalariesFund fund;
     private SalariesFund.FundType fundTypeForOthers = SalariesFund.FundType.BALANCED;
     private MathContext mc = new MathContext(20, RoundingMode.FLOOR);
 
-    public Model(List<OthersEmployee> others, List<Department> departmentList) {
+    public Model(List<OthersEmployee> others, List<ManagerDepartment> departmentList) {
         Objects.requireNonNull(others);
         Objects.requireNonNull(departmentList);
         this.others = others;
@@ -43,14 +39,14 @@ public class Model {
         if (fund.getType().equals(SalariesFund.FundType.BALANCED)){
             int amountParts = departmentList.size()+1;
             BigDecimal departmentSalary = remainder.divide(new BigDecimal(amountParts),mc);
-            for (Department department: departmentList){
+            for (ManagerDepartment department: departmentList){
                 department.getFund().setAmount(departmentSalary);
             }
             othersSalary = departmentSalary;
         }else if (fund.getType().equals(SalariesFund.FundType.UNBALANCED)){
             BigDecimal sum = new BigDecimal("0");
-            for (Department department: departmentList){
-                BigDecimal minSalaryDep = department.getSalary();
+            for (ManagerDepartment department: departmentList){
+                BigDecimal minSalaryDep = department.getRate();
                 BigDecimal depPart = minSalaryDep.divide(minFund,mc);
                 BigDecimal depSalary = depPart.multiply(remainder);
                 department.getFund().setAmount(depSalary);
@@ -59,7 +55,7 @@ public class Model {
             othersSalary = remainder.subtract(sum);
         }
 
-        for (Department depTmp: departmentList){
+        for (ManagerDepartment depTmp: departmentList){
             result.personList.addAll(calcDepartment(depTmp));
         }
         result.personList.addAll(calcOthers(others,othersSalary,fundTypeForOthers));
@@ -98,7 +94,7 @@ public class Model {
         return personList;
     }
 
-    private List<PayForOnePerson> calcDepartment(Department department){
+    private List<PayForOnePerson> calcDepartment(ManagerDepartment department){
         List<PayForOnePerson> personList = new ArrayList<>();
         BigDecimal amount = department.getFund().getAmount();
 
@@ -117,7 +113,7 @@ public class Model {
                     personList.add(payForOnePerson);
                 }
             }else if (department.getFund().getType().equals(SalariesFund.FundType.UNBALANCED)){
-                BigDecimal minSalaryDep = department.getSalary();
+                BigDecimal minSalaryDep = department.getRate();
 
                 BigDecimal manPart = department.getManager().getSalary().divide(minSalaryDep,mc);
                 BigDecimal manSalary = manPart.multiply(amount);
@@ -154,14 +150,14 @@ public class Model {
         others.add(other);
     }
 
-    public void addDepartment(Department department){
+    public void addDepartment(ManagerDepartment department){
         Objects.requireNonNull(department);
         departmentList.add(department);
     }
 
     public BigDecimal getMinFund(){
         BigDecimal result = new BigDecimal("0");
-        for (Department depTmp: departmentList){
+        for (ManagerDepartment depTmp: departmentList){
             result = result.add(depTmp.getManager().getSalary());
             for (Employee empTmp: depTmp.getEmployeeList()){
                 result = result.add(empTmp.getSalary());
@@ -179,7 +175,7 @@ public class Model {
         return others;
     }
 
-    public List<Department> getDepartmentList() {
+    public List<ManagerDepartment> getDepartmentList() {
         return departmentList;
     }
 
