@@ -3,6 +3,8 @@ package com.entity;
 import com.entity.empl.Employee;
 import com.entity.empl.Manager;
 
+import javax.swing.plaf.basic.BasicIconFactory;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,6 +47,17 @@ public class Department {
         Objects.requireNonNull(fund);
         this.fund = fund;
     }
+
+    public BigDecimal getSalary(){
+        BigDecimal result = new BigDecimal("0");
+        result.add(manager.getSalary());
+        for (Employee employeeTmp: manager.getEmployeeList()){
+            result.add(employeeTmp.getSalary());
+        }
+
+        return result;
+    }
+
 
     @Override
     public boolean equals(Object o) {
