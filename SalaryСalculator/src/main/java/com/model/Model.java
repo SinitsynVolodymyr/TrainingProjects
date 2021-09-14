@@ -16,12 +16,21 @@ public class Model {
     private List<OthersEmployee> others = new ArrayList<>();
     private List<Department> departmentList = new ArrayList<>();
     private SalariesFund fund;
+    private SalariesFund.FundType fundTypeForOthers = SalariesFund.FundType.BALANCED;
 
     public Model(List<OthersEmployee> others, List<Department> departmentList) {
         Objects.requireNonNull(others);
         Objects.requireNonNull(departmentList);
         this.others = others;
         this.departmentList = departmentList;
+    }
+
+    public SalariesFund.FundType getFundTypeForOthers() {
+        return fundTypeForOthers;
+    }
+
+    public void setFundTypeForOthers(SalariesFund.FundType fundTypeForOthers) {
+        this.fundTypeForOthers = fundTypeForOthers;
     }
 
     public void addOthersEmployee(OthersEmployee other){

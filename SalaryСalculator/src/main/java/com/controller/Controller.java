@@ -22,41 +22,36 @@ public class Controller {
 
     public void userInput(){
         Scanner scanner = new Scanner(System.in);
-        SalariesFund companyFund = initFundWithSize(scanner, View.companyName.toLowerCase(Locale.ROOT));
+        SalariesFund companyFund = initFund(scanner, View.companyName.toLowerCase(Locale.ROOT));
         model.setFund(companyFund);
         initDepartmentTypeOfFund(scanner, model.getDepartmentList());
-        initOthersTypeOfFund(scanner);
+        model.setFundTypeForOthers(initOthersTypeOfFund(scanner));
     }
 
     public void initDepartmentTypeOfFund(Scanner sc, List<Department> departmentList){
         for (Department depTmp: departmentList) {
-            SalariesFund fund = initFundWithoutSize(sc, depTmp.getName().toLowerCase(Locale.ROOT));
-            depTmp.setFund(fund);
+            SalariesFund.FundType fundType = initFundType(sc, depTmp.getName().toLowerCase(Locale.ROOT));
+            depTmp.setFund(new SalariesFund(fundType));
         }
     }
 
-    public void initOthersTypeOfFund(Scanner sc){
-            SalariesFund fund = initFundWithoutSize(sc, View.othersName.toLowerCase(Locale.ROOT));
+    public SalariesFund.FundType initOthersTypeOfFund(Scanner sc){
+        return initFundType(sc, View.othersName.toLowerCase(Locale.ROOT));
     }
 
-
-    public SalariesFund initFundWithSize(Scanner sc, String fundName){
+    public SalariesFund initFund(Scanner sc, String fundName){
         BigDecimal sizeFund = getUserDoubleValueAnswer(sc);
-        view.print(String.format(View.inputIsBalancedFundMassageFormat,fundName));
-        boolean isBalanced = getUserTrueFalseAnswer(sc);
-        SalariesFund.FundType type = SalariesFund.FundType.UNBALANCED;
-        if (isBalanced)
-            type = SalariesFund.FundType.BALANCED;
+        SalariesFund.FundType type = initFundType(sc, fundName);
         return new SalariesFund(sizeFund, type);
     }
 
-    public SalariesFund initFundWithoutSize(Scanner sc, String fundName){
+    public SalariesFund.FundType initFundType(Scanner sc, String fundName){
         view.print(String.format(View.inputIsBalancedFundMassageFormat,fundName));
         boolean isBalanced = getUserTrueFalseAnswer(sc);
         SalariesFund.FundType type = SalariesFund.FundType.UNBALANCED;
         if (isBalanced)
             type = SalariesFund.FundType.BALANCED;
-        return new SalariesFund(type);
+        return type;
     }
 
 
