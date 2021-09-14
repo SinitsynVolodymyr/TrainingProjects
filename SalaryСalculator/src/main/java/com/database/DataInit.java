@@ -42,7 +42,6 @@ public class DataInit {
         manager2.addEmployee(new Employee("ПАНЧЕНКО", new Date(929363584), new Date(1630499615),new BigDecimal("2500")));
         manager2.addEmployee(new Employee("ГУМЕНЮК", new Date(931955584), new Date(1630499615),new BigDecimal("1300")));
         manager2.addEmployee(new Employee("НАЗАРЕНКО", new Date(934633984), new Date(1630499615),new BigDecimal("1800")));
-        manager2.addEmployee(new Employee("МАКАРЕНКО", new Date(939904384), new Date(1630499615),new BigDecimal("4200")));
         result.add(new ManagerDepartment("Economy", manager2));
 
         Manager manager3 = new Manager("КОВАЛЕНКО", new Date(811081984), new Date(1536928415),new BigDecimal("22000"));
@@ -50,8 +49,6 @@ public class DataInit {
         manager3.addEmployee(new Employee("САВЧЕНКО", new Date(916317184), new Date(1630499615),new BigDecimal("5300")));
         manager3.addEmployee(new Employee("ГАВРИЛЮК", new Date(918995584), new Date(1630499615),new BigDecimal("8000")));
         manager3.addEmployee(new Employee("БОНДАР", new Date(921414784), new Date(1630499615),new BigDecimal("1500")));
-        manager3.addEmployee(new Employee("КУШНІР", new Date(924093184), new Date(1630499615),new BigDecimal("3200")));
-        manager3.addEmployee(new Employee("КОЛОМІЄЦЬ", new Date(926685184), new Date(1630499615),new BigDecimal("2540")));
         manager3.addEmployee(new Employee("ПАНЧЕНКО", new Date(929363584), new Date(1630499615),new BigDecimal("3620")));
         manager3.addEmployee(new Employee("ГУМЕНЮК", new Date(931955584), new Date(1630499615),new BigDecimal("4500")));
         manager3.addEmployee(new Employee("НАЗАРЕНКО", new Date(934633984), new Date(1630499615),new BigDecimal("2500")));
