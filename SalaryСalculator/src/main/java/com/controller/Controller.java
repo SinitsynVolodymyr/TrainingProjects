@@ -43,25 +43,30 @@ public class Controller {
     }
 
 
+    /*
+    && ((input = sc.nextLine()).equalsIgnoreCase("Y")
+                || input.equalsIgnoreCase("N")))){
+            view.print(View.wrongInputMessage);
+            view.print(View.yesNoQuestionMessage);
+     */
+
     public boolean getUserTrueFalseAnswer(Scanner sc){
         view.print(View.yesNoQuestionMessage);
         String input = "";
-        while (!(sc.hasNext()
-                && ((input = sc.nextLine()).equalsIgnoreCase("Y")
+        while (!(sc.hasNext() && ((input = sc.next()).equalsIgnoreCase("Y")
                 || input.equalsIgnoreCase("N")))){
             view.print(View.wrongInputMessage);
             view.print(View.yesNoQuestionMessage);
         }
-        if (input.equalsIgnoreCase("Y")) return true;
-        else return false;
+        return false;
     }
 
     public BigDecimal getUserDoubleValueAnswer(Scanner sc){
         view.print(View.inputSalaryFundMessage);
-        String input = "";
         while (!sc.hasNextDouble()){
             view.print(View.wrongInputMessage);
             view.print(View.inputSalaryFundMessage);
+            sc.next();
         }
 
         return new BigDecimal(sc.nextDouble());
