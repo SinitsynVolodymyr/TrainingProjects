@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Department<T> {
+public abstract class Department<T extends Employee> {
 
     protected String name;
     protected SalariesFund fund;
