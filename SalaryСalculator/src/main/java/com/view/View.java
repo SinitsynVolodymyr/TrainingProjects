@@ -29,7 +29,7 @@ public class View {
         AsciiTable at = new AsciiTable();
 
         at.addRule();
-        at.addRow(generateFirstRow(new String[]{"Name", "Department","Fund type", "Rate", "Salary","Premium"}));
+        at.addRow(generateFirstRow(new String[]{"Name", "Department","Fund type", "Rate", "Premium", "Salary"}));
         at.addRule();
 
         for (PayForOnePerson person: payroll.personList){
@@ -58,8 +58,8 @@ public class View {
         row.add(payForOnePerson.getDepartment().getName());
         row.add(payForOnePerson.getDepartment().getFund().getType().getName());
         row.add(payForOnePerson.getEmployee().getSalary().toString());
-        row.add(payForOnePerson.getSalary().toString());
         row.add(payForOnePerson.getPremium().toString());
+        row.add(payForOnePerson.getSalary().toString());
 
         return row.toArray(new String[0]);
     }
@@ -73,8 +73,8 @@ public class View {
 
         for(PayForOnePerson person: payroll.personList){
             rate = rate.add(person.getEmployee().getSalary());
-            salary = salary.add(person.getSalary());
             premium = premium.add(person.getPremium());
+            salary = salary.add(person.getSalary());
         }
 
         finalRow.add("-");
