@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class SalariesFund {
 
-    BigDecimal amount;
-    FundType type;
+    private BigDecimal amount;
+    private FundType type;
 
     public SalariesFund(FundType type) {
         this(new BigDecimal("0"),type);

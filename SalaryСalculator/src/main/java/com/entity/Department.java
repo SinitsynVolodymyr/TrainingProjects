@@ -1,6 +1,7 @@
 package com.entity;
 
 import com.entity.empl.Employee;
+import com.model.PayForOnePerson;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -36,5 +37,6 @@ public abstract class Department<T extends Employee> {
 
     public abstract BigDecimal getRate();
 
+    public abstract List<PayForOnePerson> calculateSalary();
 
 }

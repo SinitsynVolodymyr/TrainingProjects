@@ -20,8 +20,7 @@ public class Model {
     private OthersDepartment others;
     private List<ManagerDepartment> departmentList;
     private SalariesFund fund;
-    private SalariesFund.FundType fundTypeForOthers = SalariesFund.FundType.BALANCED;
-    private MathContext mc = new MathContext(20, RoundingMode.FLOOR);
+    public static final MathContext mc = new MathContext(20, RoundingMode.FLOOR);
 
     public Model(OthersDepartment others, List<ManagerDepartment> departmentList) {
         Objects.requireNonNull(others);
@@ -35,7 +34,6 @@ public class Model {
         Payroll result = new Payroll();
         BigDecimal minFund = this.getAllRate();
         BigDecimal remainder = fund.getAmount().subtract(minFund);
-        BigDecimal othersSalary = new BigDecimal("0");
 
         if (fund.getType().equals(SalariesFund.FundType.BALANCED)){
             int amountParts = departmentList.size()+1;
@@ -43,7 +41,7 @@ public class Model {
             for (ManagerDepartment department: departmentList){
                 department.getFund().setAmount(departmentSalary);
             }
-            othersSalary = departmentSalary;
+            others.getFund().setAmount(departmentSalary);
         }else if (fund.getType().equals(SalariesFund.FundType.UNBALANCED)){
             BigDecimal sum = new BigDecimal("0");
             for (ManagerDepartment department: departmentList){
@@ -53,97 +51,15 @@ public class Model {
                 department.getFund().setAmount(depSalary);
                 sum = sum.add(depSalary);
             }
-            othersSalary = remainder.subtract(sum);
+            others.getFund().setAmount(remainder.subtract(sum));
         }
 
         for (ManagerDepartment depTmp: departmentList){
-            result.personList.addAll(calcDepartment(depTmp));
+            result.personList.addAll(depTmp.calculateSalary());
         }
-        result.personList.addAll(calcOthers(others.getEmployeeList(),othersSalary,fundTypeForOthers));
+        result.personList.addAll(others.calculateSalary());
 
         return result;
-    }
-
-    private List<PayForOnePerson> calcOthers(List<OthersEmployee> othersEmployee
-            , BigDecimal salary
-            , SalariesFund.FundType type){
-        List<PayForOnePerson> personList = new ArrayList<>();
-
-        if (type.equals(SalariesFund.FundType.BALANCED)){
-            int amountParts = othersEmployee.size();
-            BigDecimal employeeSalary = salary.divide(new BigDecimal(amountParts),mc);
-            for (Employee employee: othersEmployee){
-                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, employeeSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartmentName(View.othersName);
-                payForOnePerson.setPremium(employeeSalary);
-                personList.add(payForOnePerson);
-            }
-        }else if (type.equals(SalariesFund.FundType.UNBALANCED)){
-            BigDecimal minSalaryDep = new BigDecimal("0");
-            for (Employee employee: othersEmployee){
-                minSalaryDep = minSalaryDep.add(employee.getSalary());
-            }
-            for (Employee employee: othersEmployee){
-                BigDecimal empPart = employee.getSalary().divide(minSalaryDep,mc); BigDecimal empSalary = empPart.multiply(salary);
-                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartmentName(View.othersName);
-                payForOnePerson.setPremium(empSalary);
-                personList.add(payForOnePerson);
-            }
-        }
-
-        return personList;
-    }
-
-    private List<PayForOnePerson> calcDepartment(ManagerDepartment department){
-        List<PayForOnePerson> personList = new ArrayList<>();
-        BigDecimal amount = department.getFund().getAmount();
-
-        if (department.getFund().getType().equals(SalariesFund.FundType.BALANCED)){
-                int amountParts = department.getEmployeeList().size()+1;
-                BigDecimal employeeSalary = amount.divide(new BigDecimal(amountParts),mc);
-                PayForOnePerson payForOneManager = new PayForOnePerson(department.getManager(),
-                        employeeSalary.add(department.getManager().getSalary()));
-                payForOneManager.setDepartmentName(department.getName());
-                payForOneManager.setPremium(employeeSalary);
-                personList.add(payForOneManager);
-                for (Employee employee: department.getEmployeeList()){
-                    PayForOnePerson payForOnePerson = new PayForOnePerson(employee, employeeSalary.add(employee.getSalary()));
-                    payForOnePerson.setDepartmentName(department.getName());
-                    payForOnePerson.setPremium(employeeSalary);
-                    personList.add(payForOnePerson);
-                }
-            }else if (department.getFund().getType().equals(SalariesFund.FundType.UNBALANCED)){
-                BigDecimal minSalaryDep = department.getRate();
-
-                BigDecimal manPart = department.getManager().getSalary().divide(minSalaryDep,mc);
-                BigDecimal manSalary = manPart.multiply(amount);
-                PayForOnePerson payForOneManager = new PayForOnePerson(department.getManager(),
-                        manSalary.add(department.getManager().getSalary()));
-                payForOneManager.setDepartmentName(department.getName());
-                payForOneManager.setPremium(manSalary);
-                personList.add(payForOneManager);
-
-                for (Employee employee: department.getEmployeeList()){
-                    BigDecimal empPart = employee.getSalary().divide(minSalaryDep,mc);
-                    BigDecimal empSalary = empPart.multiply(amount);
-                    PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
-                    payForOnePerson.setDepartmentName(department.getName());
-                    payForOnePerson.setPremium(empSalary);
-                    personList.add(payForOnePerson);
-                }
-        }
-
-        return personList;
-    }
-
-
-    public SalariesFund.FundType getFundTypeForOthers() {
-        return fundTypeForOthers;
-    }
-
-    public void setFundTypeForOthers(SalariesFund.FundType fundTypeForOthers) {
-        this.fundTypeForOthers = fundTypeForOthers;
     }
 
     public void addOthersEmployee(OthersEmployee other){

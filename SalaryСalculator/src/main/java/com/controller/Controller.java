@@ -31,7 +31,7 @@ public class Controller {
         SalariesFund companyFund = initFund(scanner, View.companyName.toLowerCase(Locale.ROOT), minFund);
         model.setFund(companyFund);
         initDepartmentTypeOfFund(scanner, model.getDepartmentList());
-        model.setFundTypeForOthers(initOthersTypeOfFund(scanner));
+        model.getOthers().setFund(new SalariesFund(initOthersTypeOfFund(scanner)));
 
         Payroll payroll = model.calculatePayroll(getUserCalcDateAnswer(scanner));
         view.printPayroll(payroll);

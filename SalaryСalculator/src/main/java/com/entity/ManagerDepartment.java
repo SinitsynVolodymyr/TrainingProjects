@@ -2,8 +2,11 @@ package com.entity;
 
 import com.entity.empl.Employee;
 import com.entity.empl.Manager;
+import com.model.Model;
+import com.model.PayForOnePerson;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,6 +40,49 @@ public class ManagerDepartment extends Department<Employee>{
             result = result.add(employeeTmp.getSalary());
         }
         return result;
+    }
+
+    @Override
+    public List<PayForOnePerson> calculateSalary() {
+        List<PayForOnePerson> personList = new ArrayList<>();
+        BigDecimal amount = this.getFund().getAmount();
+
+        if (this.getFund().getType().equals(SalariesFund.FundType.BALANCED)){
+            int amountParts = this.getEmployeeList().size()+1;
+            BigDecimal employeeSalary = amount.divide(new BigDecimal(amountParts), Model.mc);
+            PayForOnePerson payForOneManager = new PayForOnePerson(this.getManager(),
+                    employeeSalary.add(this.getManager().getSalary()));
+            payForOneManager.setDepartmentName(this.getName());
+            payForOneManager.setPremium(employeeSalary);
+            personList.add(payForOneManager);
+            for (Employee employee: this.getEmployeeList()){
+                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, employeeSalary.add(employee.getSalary()));
+                payForOnePerson.setDepartmentName(this.getName());
+                payForOnePerson.setPremium(employeeSalary);
+                personList.add(payForOnePerson);
+            }
+        }else if (this.getFund().getType().equals(SalariesFund.FundType.UNBALANCED)){
+            BigDecimal minSalaryDep = this.getRate();
+
+            BigDecimal manPart = this.getManager().getSalary().divide(minSalaryDep,Model.mc);
+            BigDecimal manSalary = manPart.multiply(amount);
+            PayForOnePerson payForOneManager = new PayForOnePerson(this.getManager(),
+                    manSalary.add(this.getManager().getSalary()));
+            payForOneManager.setDepartmentName(this.getName());
+            payForOneManager.setPremium(manSalary);
+            personList.add(payForOneManager);
+
+            for (Employee employee: this.getEmployeeList()){
+                BigDecimal empPart = employee.getSalary().divide(minSalaryDep,Model.mc);
+                BigDecimal empSalary = empPart.multiply(amount);
+                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
+                payForOnePerson.setDepartmentName(this.getName());
+                payForOnePerson.setPremium(empSalary);
+                personList.add(payForOnePerson);
+            }
+        }
+
+        return personList;
     }
 
 
