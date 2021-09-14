@@ -89,6 +89,15 @@ public class Model {
 
         return result;
     }
+    public BigDecimal getMinSalary(Date date){
+        BigDecimal result = new BigDecimal("0");
+        for (ManagerDepartment depTmp: departmentList){
+            result = result.add(depTmp.getMinSalary(date));
+        }
+        result = result.add(others.getMinSalary(date));
+
+        return result;
+    }
 
     public OthersDepartment getOthers() {
         return others;

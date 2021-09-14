@@ -27,13 +27,14 @@ public class Controller {
 
     public void userInput(){
         Scanner scanner = new Scanner(System.in);
-        BigDecimal minFund = model.getAllRate();
+        Date userCalcDate = getUserCalcDateAnswer(scanner);
+        BigDecimal minFund = model.getMinSalary(userCalcDate);
         SalariesFund companyFund = initFund(scanner, View.companyName.toLowerCase(Locale.ROOT), minFund);
         model.setFund(companyFund);
         initDepartmentTypeOfFund(scanner, model.getDepartmentList());
         model.getOthers().setFund(new SalariesFund(initOthersTypeOfFund(scanner)));
 
-        Payroll payroll = model.calculatePayroll(getUserCalcDateAnswer(scanner));
+        Payroll payroll = model.calculatePayroll(userCalcDate);
         view.printPayroll(payroll);
     }
 

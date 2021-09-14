@@ -1,9 +1,6 @@
 package com.entity;
 
-import com.entity.empl.Employee;
 import com.entity.empl.OthersEmployee;
-import com.model.Model;
-import com.model.PayForOnePerson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,15 +23,5 @@ public class OthersDepartment extends Department<OthersEmployee> {
     public List<OthersEmployee> getEmployeeList() {
         return employeeList;
     }
-
-    @Override
-    public BigDecimal getRate() {
-        BigDecimal result = new BigDecimal("0");
-        for (OthersEmployee empTmp : employeeList) {
-            result = result.add(empTmp.getSalary());
-        }
-        return result;
-    }
-
 
 }

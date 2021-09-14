@@ -2,11 +2,10 @@ package com.entity;
 
 import com.entity.empl.Employee;
 import com.entity.empl.Manager;
-import com.model.Model;
-import com.model.PayForOnePerson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,14 +35,7 @@ public class ManagerDepartment extends Department<Employee>{
         return manager;
     }
 
-    public BigDecimal getRate(){
-        BigDecimal result = new BigDecimal("0");
-        result = result.add(manager.getSalary());
-        for (Employee employeeTmp: manager.getEmployeeList()){
-            result = result.add(employeeTmp.getSalary());
-        }
-        return result;
-    }
+
 
 
     @Override

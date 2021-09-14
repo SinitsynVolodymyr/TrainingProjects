@@ -1,12 +1,12 @@
 package com.entity;
 
 import com.entity.empl.Employee;
-import com.entity.empl.Manager;
 import com.model.Model;
 import com.model.PayForOnePerson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,8 +37,21 @@ public abstract class Department<T extends Employee> {
         Objects.requireNonNull(fund);
         this.fund = fund;
     }
+    public BigDecimal getRate(){
+        BigDecimal result = new BigDecimal("0");
+        for (Employee employeeTmp: getEmployeeList()){
+            result = result.add(employeeTmp.getRate());
+        }
+        return result;
+    }
 
-    public abstract BigDecimal getRate();
+    public BigDecimal getMinSalary(Date date){
+        BigDecimal result = new BigDecimal("0");
+        for (Employee employeeTmp: getEmployeeList()){
+            result = result.add(employeeTmp.getMinSalary(date));
+        }
+        return result;
+    }
 
     public List<PayForOnePerson> calculateSalary() {
         List<PayForOnePerson> personList = new ArrayList<>();
@@ -54,7 +67,7 @@ public abstract class Department<T extends Employee> {
 
     private PayForOnePerson initPayAccount(Employee employee, BigDecimal empPremium){
         PayForOnePerson result = new PayForOnePerson(employee,
-                empPremium.add(employee.getSalary()));
+                empPremium.add(employee.getRate()));
         result.setDepartment(this);
         result.setPremium(empPremium);
         return result;
@@ -86,7 +99,7 @@ public abstract class Department<T extends Employee> {
     }
 
     private BigDecimal calculateUnbalancedPremiumValueForEmployee(Employee employee){
-        BigDecimal manPart = employee.getSalary().divide(this.getRate(),Model.mc);
+        BigDecimal manPart = employee.getRate().divide(this.getRate(),Model.mc);
         BigDecimal premium = manPart.multiply(this.getFund().getAmount());
         return premium;
     }

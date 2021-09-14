@@ -15,10 +15,12 @@ public class Employee {
     protected BigDecimal salary;
 
     public Employee(String name, Date birthday, Date inputWork) throws SalaryIsTooSmallException {
-        this(name,birthday,inputWork,Config.MIN_SALARY);
+
+        this(name, birthday, inputWork, Config.MIN_SALARY);
     }
 
     public Employee(String name, Date birthday, Date inputWork, BigDecimal salary) throws SalaryIsTooSmallException {
+
         Objects.requireNonNull(name);
         Objects.requireNonNull(birthday);
         Objects.requireNonNull(inputWork);
@@ -35,7 +37,14 @@ public class Employee {
         this.salary = salary;
     }
 
-    public BigDecimal getSalary() {
+    public BigDecimal getRate() {
+        return salary;
+    }
+
+    public BigDecimal getMinSalary(Date date) {
+        if (date.getMonth()==getBirthday().getMonth()){
+            return salary.add(Config.BIRTHDAY_PREMIUM);
+        }
         return salary;
     }
 

@@ -57,7 +57,7 @@ public class View {
         row.add(payForOnePerson.getEmployee().getName());
         row.add(payForOnePerson.getDepartment().getName());
         row.add(payForOnePerson.getDepartment().getFund().getType().getName());
-        row.add(payForOnePerson.getEmployee().getSalary().toString());
+        row.add(payForOnePerson.getEmployee().getRate().toString());
         row.add(payForOnePerson.getPremium().toString());
         row.add(payForOnePerson.getSalary().toString());
 
@@ -72,7 +72,7 @@ public class View {
         BigDecimal premium = new BigDecimal("0");
 
         for(PayForOnePerson person: payroll.personList){
-            rate = rate.add(person.getEmployee().getSalary());
+            rate = rate.add(person.getEmployee().getRate());
             premium = premium.add(person.getPremium());
             salary = salary.add(person.getSalary());
         }
