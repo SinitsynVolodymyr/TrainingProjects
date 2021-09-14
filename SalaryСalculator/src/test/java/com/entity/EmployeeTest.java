@@ -3,6 +3,7 @@ package com.entity;
 import com.entity.empl.Employee;
 import com.entity.empl.Manager;
 import com.entity.empl.OthersEmployee;
+import com.exception.SalaryIsTooSmallException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class EmployeeTest {
     Employee misha2;
 
     @BeforeEach
-    void init(){
+    void init() throws SalaryIsTooSmallException {
          natasha1 = new OthersEmployee("Natasha","Director", new Date(1284237214), new Date(1599856414));
          misha1 = new Manager("Misha", new Date(1315773214), new Date(1442003614));
 

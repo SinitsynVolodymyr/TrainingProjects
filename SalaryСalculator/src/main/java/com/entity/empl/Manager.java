@@ -1,5 +1,8 @@
 package com.entity.empl;
 
+import com.exception.SalaryIsTooSmallException;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +11,12 @@ public class Manager extends Employee{
 
     private List<Employee> employeeList = new ArrayList<>();
 
-    public Manager(String name, Date birthday, Date inputWork) {
+    public Manager(String name, Date birthday, Date inputWork) throws SalaryIsTooSmallException {
         super(name, birthday, inputWork);
+    }
+
+    public Manager(String name, Date birthday, Date inputWork, BigDecimal salary) throws SalaryIsTooSmallException {
+        super(name, birthday, inputWork, salary);
     }
 
     public void addEmployee(Employee employee){

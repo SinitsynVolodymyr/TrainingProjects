@@ -1,5 +1,8 @@
 package com.entity.empl;
 
+import com.exception.SalaryIsTooSmallException;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,8 +13,14 @@ public class OthersEmployee extends Employee{
     private String positionName;
     private String description = "";
 
-    public OthersEmployee(String name, String positionName, Date birthday, Date inputWork) {
+    public OthersEmployee(String name, String positionName, Date birthday, Date inputWork) throws SalaryIsTooSmallException {
         super(name, birthday, inputWork);
+        Objects.requireNonNull(positionName);
+        this.positionName = positionName;
+    }
+
+    public OthersEmployee(String name, Date birthday, Date inputWork, BigDecimal salary, String positionName) throws SalaryIsTooSmallException {
+        super(name, birthday, inputWork, salary);
         Objects.requireNonNull(positionName);
         this.positionName = positionName;
     }

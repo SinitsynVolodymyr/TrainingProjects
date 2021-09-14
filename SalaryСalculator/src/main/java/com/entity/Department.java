@@ -13,12 +13,10 @@ public class Department {
     private Manager manager;
     private SalariesFund fund;
 
-    public Department(String name, SalariesFund fund, Manager manager) {
+    public Department(String name, Manager manager) {
         Objects.requireNonNull(name);
-        Objects.requireNonNull(fund);
         Objects.requireNonNull(manager);
         this.name = name;
-        this.fund = fund;
         this.manager = manager;
     }
 
@@ -28,6 +26,24 @@ public class Department {
 
     public List<Employee> getEmployeeList() {
         return manager.getEmployeeList();
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public SalariesFund getFund() {
+        return fund;
+    }
+
+    public void setFund(SalariesFund fund) {
+        Objects.requireNonNull(fund);
+        this.fund = fund;
     }
 
     @Override

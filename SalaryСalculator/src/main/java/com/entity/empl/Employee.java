@@ -14,14 +14,19 @@ public class Employee {
     protected Date inputWorkDate;
     protected BigDecimal salary;
 
-    public Employee(String name, Date birthday, Date inputWork) {
+    public Employee(String name, Date birthday, Date inputWork) throws SalaryIsTooSmallException {
+        this(name,birthday,inputWork,Config.MIN_SALARY);
+    }
+
+    public Employee(String name, Date birthday, Date inputWork, BigDecimal salary) throws SalaryIsTooSmallException {
         Objects.requireNonNull(name);
         Objects.requireNonNull(birthday);
         Objects.requireNonNull(inputWork);
+        Objects.requireNonNull(salary);
         this.name = name;
         this.birthday = new Date(birthday.getTime());
         this.inputWorkDate = new Date(inputWork.getTime());
-        this.salary = Config.MIN_SALARY;
+        setSalary(salary);
     }
 
     public void setSalary(BigDecimal salary) throws SalaryIsTooSmallException {
