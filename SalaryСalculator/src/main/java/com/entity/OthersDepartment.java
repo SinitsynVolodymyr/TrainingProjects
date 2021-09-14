@@ -36,35 +36,5 @@ public class OthersDepartment extends Department<OthersEmployee> {
         return result;
     }
 
-    @Override
-    public List<PayForOnePerson> calculateSalary() {
-        List<PayForOnePerson> personList = new ArrayList<>();
-
-        if (this.fund.getType().equals(SalariesFund.FundType.BALANCED)){
-            int amountParts = this.getEmployeeList().size();
-            BigDecimal employeeSalary = this.fund.getAmount().divide(new BigDecimal(amountParts), Model.mc);
-            for (Employee employee: this.getEmployeeList()){
-                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, employeeSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartment(this);
-                payForOnePerson.setPremium(employeeSalary);
-                personList.add(payForOnePerson);
-            }
-        }else if (this.fund.getType().equals(SalariesFund.FundType.UNBALANCED)){
-            BigDecimal minSalaryDep = new BigDecimal("0");
-            for (Employee employee: this.getEmployeeList()){
-                minSalaryDep = minSalaryDep.add(employee.getSalary());
-            }
-            for (Employee employee: this.getEmployeeList()){
-                BigDecimal empPart = employee.getSalary().divide(minSalaryDep,Model.mc); BigDecimal empSalary = empPart.multiply(this.fund.getAmount());
-                PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartment(this);
-                payForOnePerson.setPremium(empSalary);
-                personList.add(payForOnePerson);
-            }
-        }
-
-        return personList;
-    }
-
 
 }

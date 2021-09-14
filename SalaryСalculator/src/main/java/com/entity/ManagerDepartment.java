@@ -26,7 +26,10 @@ public class ManagerDepartment extends Department<Employee>{
     }
 
     public List<Employee> getEmployeeList() {
-        return manager.getEmployeeList();
+        List<Employee> result = new ArrayList<>();
+        result.add(getManager());
+        result.addAll(getManager().getEmployeeList());
+        return result;
     }
 
     public Manager getManager() {
@@ -40,65 +43,6 @@ public class ManagerDepartment extends Department<Employee>{
             result = result.add(employeeTmp.getSalary());
         }
         return result;
-    }
-
-    @Override
-    public List<PayForOnePerson> calculateSalary() {
-        List<PayForOnePerson> personList = new ArrayList<>();
-        BigDecimal amount = this.getFund().getAmount();
-
-        if (this.getFund().getType().equals(SalariesFund.FundType.BALANCED)){
-            personList.addAll(calculateBalancedSalary());
-        }else if (this.getFund().getType().equals(SalariesFund.FundType.UNBALANCED)){
-            personList.addAll(calculateUnbalancedSalary());
-        }
-
-        return personList;
-    }
-
-    private PayForOnePerson initPayAccount(Employee employee, BigDecimal empPremium){
-        PayForOnePerson result = new PayForOnePerson(employee,
-                empPremium.add(employee.getSalary()));
-        result.setDepartment(this);
-        result.setPremium(empPremium);
-        return result;
-    }
-
-    private List<PayForOnePerson> calculateBalancedSalary(){
-        List<PayForOnePerson> result = new ArrayList<>();
-        BigDecimal empPremium = calculateBalancedPremiumValue();
-        result.add(initPayAccount(this.getManager(),empPremium));
-        for (Employee employee: this.getEmployeeList()){
-            result.add(initPayAccount(employee,empPremium));
-        }
-        return result;
-    }
-
-    private BigDecimal calculateBalancedPremiumValue(){
-        BigDecimal amount = this.getFund().getAmount();
-        int amountParts = this.getEmployeeList().size()+1;
-        BigDecimal premium = amount.divide(new BigDecimal(amountParts), Model.mc);
-        return premium;
-    }
-
-    private List<PayForOnePerson> calculateUnbalancedSalary(){
-        List<PayForOnePerson> result = new ArrayList<>();
-
-        Manager manager = this.getManager();
-        BigDecimal manPremium = calculateUnbalancedPremiumValueForEmployee(manager);
-        result.add(initPayAccount(this.getManager(),manPremium));
-
-        for (Employee employee: this.getEmployeeList()){
-            BigDecimal empPremium = calculateUnbalancedPremiumValueForEmployee(employee);
-            result.add(initPayAccount(employee,empPremium));
-        }
-        return result;
-    }
-
-    private BigDecimal calculateUnbalancedPremiumValueForEmployee(Employee employee){
-        BigDecimal manPart = employee.getSalary().divide(this.getRate(),Model.mc);
-        BigDecimal premium = manPart.multiply(this.getFund().getAmount());
-        return premium;
     }
 
 
