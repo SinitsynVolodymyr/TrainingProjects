@@ -1,11 +1,9 @@
 package com.entity;
 
 import com.entity.empl.Employee;
-import com.entity.empl.Manager;
 import com.entity.empl.OthersEmployee;
 import com.model.Model;
 import com.model.PayForOnePerson;
-import com.view.View;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -47,7 +45,7 @@ public class OthersDepartment extends Department<OthersEmployee> {
             BigDecimal employeeSalary = this.fund.getAmount().divide(new BigDecimal(amountParts), Model.mc);
             for (Employee employee: this.getEmployeeList()){
                 PayForOnePerson payForOnePerson = new PayForOnePerson(employee, employeeSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartmentName(View.othersName);
+                payForOnePerson.setDepartment(this);
                 payForOnePerson.setPremium(employeeSalary);
                 personList.add(payForOnePerson);
             }
@@ -59,7 +57,7 @@ public class OthersDepartment extends Department<OthersEmployee> {
             for (Employee employee: this.getEmployeeList()){
                 BigDecimal empPart = employee.getSalary().divide(minSalaryDep,Model.mc); BigDecimal empSalary = empPart.multiply(this.fund.getAmount());
                 PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartmentName(View.othersName);
+                payForOnePerson.setDepartment(this);
                 payForOnePerson.setPremium(empSalary);
                 personList.add(payForOnePerson);
             }

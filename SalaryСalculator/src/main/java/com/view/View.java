@@ -1,6 +1,5 @@
 package com.view;
 
-import com.entity.empl.Employee;
 import com.model.PayForOnePerson;
 import com.model.Payroll;
 import de.vandermeer.asciitable.AsciiTable;
@@ -30,7 +29,7 @@ public class View {
         AsciiTable at = new AsciiTable();
 
         at.addRule();
-        at.addRow(generateFirstRow(new String[]{"Name", "Department", "Rate", "Salary","Premium"}));
+        at.addRow(generateFirstRow(new String[]{"Name", "Department","Fund type", "Rate", "Salary","Premium"}));
         at.addRule();
 
         for (PayForOnePerson person: payroll.personList){
@@ -47,8 +46,8 @@ public class View {
 
     private static String[] generateFirstRow(String[] collumName){
         List<String> firstRow = new ArrayList<>();
-        for (String moveTmp: collumName) {
-            firstRow.add(moveTmp);
+        for (String collum: collumName) {
+            firstRow.add(collum);
         }
         return firstRow.toArray(new String[0]);
     }
@@ -56,7 +55,8 @@ public class View {
     private static String[] generateRow(PayForOnePerson payForOnePerson){
         List<String> row = new ArrayList<>();
         row.add(payForOnePerson.getEmployee().getName());
-        row.add(payForOnePerson.getDepartmentName());
+        row.add(payForOnePerson.getDepartment().getName());
+        row.add(payForOnePerson.getDepartment().getFund().getType().getName());
         row.add(payForOnePerson.getEmployee().getSalary().toString());
         row.add(payForOnePerson.getSalary().toString());
         row.add(payForOnePerson.getPremium().toString());
@@ -77,6 +77,7 @@ public class View {
             premium = premium.add(person.getPremium());
         }
 
+        finalRow.add("-");
         finalRow.add("-");
         finalRow.add("-");
         finalRow.add(rate.toString());

@@ -31,7 +31,17 @@ public class SalariesFund {
 
 
     public enum FundType {
-        BALANCED,UNBALANCED;
+        BALANCED("Balanced"),UNBALANCED("Unbalanced");
+
+        private final String name;
+
+        FundType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     @Override

@@ -52,12 +52,12 @@ public class ManagerDepartment extends Department<Employee>{
             BigDecimal employeeSalary = amount.divide(new BigDecimal(amountParts), Model.mc);
             PayForOnePerson payForOneManager = new PayForOnePerson(this.getManager(),
                     employeeSalary.add(this.getManager().getSalary()));
-            payForOneManager.setDepartmentName(this.getName());
+            payForOneManager.setDepartment(this);
             payForOneManager.setPremium(employeeSalary);
             personList.add(payForOneManager);
             for (Employee employee: this.getEmployeeList()){
                 PayForOnePerson payForOnePerson = new PayForOnePerson(employee, employeeSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartmentName(this.getName());
+                payForOnePerson.setDepartment(this);
                 payForOnePerson.setPremium(employeeSalary);
                 personList.add(payForOnePerson);
             }
@@ -68,7 +68,7 @@ public class ManagerDepartment extends Department<Employee>{
             BigDecimal manSalary = manPart.multiply(amount);
             PayForOnePerson payForOneManager = new PayForOnePerson(this.getManager(),
                     manSalary.add(this.getManager().getSalary()));
-            payForOneManager.setDepartmentName(this.getName());
+            payForOneManager.setDepartment(this);
             payForOneManager.setPremium(manSalary);
             personList.add(payForOneManager);
 
@@ -76,7 +76,7 @@ public class ManagerDepartment extends Department<Employee>{
                 BigDecimal empPart = employee.getSalary().divide(minSalaryDep,Model.mc);
                 BigDecimal empSalary = empPart.multiply(amount);
                 PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
-                payForOnePerson.setDepartmentName(this.getName());
+                payForOnePerson.setDepartment(this);
                 payForOnePerson.setPremium(empSalary);
                 personList.add(payForOnePerson);
             }
