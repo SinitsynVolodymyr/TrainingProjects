@@ -26,7 +26,7 @@ public class OthersDepartment extends Department<OthersEmployee> {
     }
 
     @Override
-    BigDecimal getRate() {
+    public BigDecimal getRate() {
         BigDecimal result = new BigDecimal("0");
         for (OthersEmployee empTmp : employeeList) {
             result = result.add(empTmp.getSalary());

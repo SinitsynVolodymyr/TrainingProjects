@@ -27,7 +27,7 @@ public class Controller {
 
     public void userInput(){
         Scanner scanner = new Scanner(System.in);
-        BigDecimal minFund = model.getMinFund();
+        BigDecimal minFund = model.getAllRate();
         SalariesFund companyFund = initFund(scanner, View.companyName.toLowerCase(Locale.ROOT), minFund);
         model.setFund(companyFund);
         initDepartmentTypeOfFund(scanner, model.getDepartmentList());

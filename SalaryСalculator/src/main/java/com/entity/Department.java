@@ -34,7 +34,7 @@ public abstract class Department<T extends Employee> {
         this.fund = fund;
     }
 
-    abstract BigDecimal getRate();
+    public abstract BigDecimal getRate();
 
 
 }

@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Model {
 
     private OthersDepartment others;
-    private List<ManagerDepartment> departmentList = new ArrayList<>();
+    private List<ManagerDepartment> departmentList;
     private SalariesFund fund;
     private SalariesFund.FundType fundTypeForOthers = SalariesFund.FundType.BALANCED;
     private MathContext mc = new MathContext(20, RoundingMode.FLOOR);
@@ -33,7 +33,7 @@ public class Model {
     public Payroll calculatePayroll(Date date){
         int calcMonth = date.getMonth();
         Payroll result = new Payroll();
-        BigDecimal minFund = this.getMinFund();
+        BigDecimal minFund = this.getAllRate();
         BigDecimal remainder = fund.getAmount().subtract(minFund);
         BigDecimal othersSalary = new BigDecimal("0");
 
@@ -156,18 +156,12 @@ public class Model {
         departmentList.add(department);
     }
 
-    public BigDecimal getMinFund(){
+    public BigDecimal getAllRate(){
         BigDecimal result = new BigDecimal("0");
         for (ManagerDepartment depTmp: departmentList){
-            result = result.add(depTmp.getManager().getSalary());
-            for (Employee empTmp: depTmp.getEmployeeList()){
-                result = result.add(empTmp.getSalary());
-            }
+            result = result.add(depTmp.getRate());
         }
-
-        for (OthersEmployee otherTmp: others.getEmployeeList()){
-            result = result.add(otherTmp.getSalary());
-        }
+        result = result.add(others.getRate());
 
         return result;
     }
