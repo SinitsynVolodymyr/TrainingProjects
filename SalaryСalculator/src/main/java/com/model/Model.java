@@ -32,34 +32,42 @@ public class Model {
     public Payroll calculatePayroll(Date date){
         int calcMonth = date.getMonth();
         Payroll result = new Payroll();
-        BigDecimal minFund = this.getAllRate();
-        BigDecimal remainder = fund.getAmount().subtract(minFund);
 
-        if (fund.getType().equals(SalariesFund.FundType.BALANCED)){
-            int amountParts = departmentList.size()+1;
-            BigDecimal departmentSalary = remainder.divide(new BigDecimal(amountParts),mc);
-            for (ManagerDepartment department: departmentList){
-                department.getFund().setAmount(departmentSalary);
-            }
-            others.getFund().setAmount(departmentSalary);
-        }else if (fund.getType().equals(SalariesFund.FundType.UNBALANCED)){
-            BigDecimal sum = new BigDecimal("0");
-            for (ManagerDepartment department: departmentList){
-                BigDecimal minSalaryDep = department.getRate();
-                BigDecimal depPart = minSalaryDep.divide(minFund,mc);
-                BigDecimal depSalary = depPart.multiply(remainder);
-                department.getFund().setAmount(depSalary);
-                sum = sum.add(depSalary);
-            }
-            others.getFund().setAmount(remainder.subtract(sum));
-        }
+        if (fund.getType().equals(SalariesFund.FundType.BALANCED))
+            calcBalancedDepartFund();
+        else if (fund.getType().equals(SalariesFund.FundType.UNBALANCED))
+            calcUnbalancedDepartFund();
 
+        result.personList.addAll(others.calculateSalary());
         for (ManagerDepartment depTmp: departmentList){
             result.personList.addAll(depTmp.calculateSalary());
         }
-        result.personList.addAll(others.calculateSalary());
 
         return result;
+    }
+
+    private void calcBalancedDepartFund(){
+        BigDecimal remainder = fund.getAmount().subtract(this.getAllRate());
+        int amountParts = departmentList.size()+1;
+        BigDecimal departmentSalary = remainder.divide(new BigDecimal(amountParts),mc);
+        for (ManagerDepartment department: departmentList){
+            department.getFund().setAmount(departmentSalary);
+        }
+        others.getFund().setAmount(departmentSalary);
+    }
+
+    private void calcUnbalancedDepartFund(){
+        BigDecimal minFund = this.getAllRate();
+        BigDecimal remainder = fund.getAmount().subtract(minFund);
+        BigDecimal sum = new BigDecimal("0");
+        for (ManagerDepartment department: departmentList){
+            BigDecimal minSalaryDep = department.getRate();
+            BigDecimal depPart = minSalaryDep.divide(minFund,mc);
+            BigDecimal depSalary = depPart.multiply(remainder);
+            department.getFund().setAmount(depSalary);
+            sum = sum.add(depSalary);
+        }
+        others.getFund().setAmount(remainder.subtract(sum));
     }
 
     public void addOthersEmployee(OthersEmployee other){
