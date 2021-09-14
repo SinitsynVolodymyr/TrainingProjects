@@ -32,7 +32,7 @@ class DepartmentTest {
 
         department2 = new ManagerDepartment("dep"
                 , new Manager("jj",new Date(1000), new Date(2000)));
-        department1.setFund(new SalariesFund(SalariesFund.FundType.BALANCED));
+        department2.setFund(new SalariesFund(SalariesFund.FundType.BALANCED));
         department2.addEmployee(natasha2);
         department2.addEmployee(misha2);
 
