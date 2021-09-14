@@ -42,10 +42,15 @@ public class Employee {
     }
 
     public BigDecimal getMinSalary(Date date) {
-        if (date.getMonth()==getBirthday().getMonth()){
+        if (isBirthdayInMonth(date))
             return salary.add(Config.BIRTHDAY_PREMIUM);
-        }
-        return salary;
+        else
+            return salary;
+    }
+
+    public boolean isBirthdayInMonth(Date date){
+        if (date.getMonth()==getBirthday().getMonth()) return true;
+        else return false;
     }
 
     public static void checkSalary(BigDecimal salary) throws SalaryIsTooSmallException {

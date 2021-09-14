@@ -30,7 +30,6 @@ public class Model {
     }
 
     public Payroll calculatePayroll(Date date){
-        int calcMonth = date.getMonth();
         Payroll result = new Payroll();
 
         if (fund.getType().equals(SalariesFund.FundType.BALANCED))
@@ -38,9 +37,9 @@ public class Model {
         else if (fund.getType().equals(SalariesFund.FundType.UNBALANCED))
             calcUnbalancedDepartFund();
 
-        result.personList.addAll(others.calculateSalary());
+        result.personList.addAll(others.calculateSalary(date));
         for (ManagerDepartment depTmp: departmentList){
-            result.personList.addAll(depTmp.calculateSalary());
+            result.personList.addAll(depTmp.calculateSalary(date));
         }
 
         return result;

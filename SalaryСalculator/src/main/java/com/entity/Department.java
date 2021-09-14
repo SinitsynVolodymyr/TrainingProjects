@@ -1,5 +1,6 @@
 package com.entity;
 
+import com.Config;
 import com.entity.empl.Employee;
 import com.model.Model;
 import com.model.PayForOnePerson;
@@ -53,31 +54,40 @@ public abstract class Department<T extends Employee> {
         return result;
     }
 
-    public List<PayForOnePerson> calculateSalary() {
+    public List<PayForOnePerson> calculateSalary(Date date) {
         List<PayForOnePerson> personList = new ArrayList<>();
 
         if (this.getFund().getType().equals(SalariesFund.FundType.BALANCED)){
-            personList.addAll(calculateBalancedSalary());
+            personList.addAll(calculateBalancedSalary(date));
         }else if (this.getFund().getType().equals(SalariesFund.FundType.UNBALANCED)){
-            personList.addAll(calculateUnbalancedSalary());
+            personList.addAll(calculateUnbalancedSalary(date));
         }
 
         return personList;
     }
 
-    private PayForOnePerson initPayAccount(Employee employee, BigDecimal empPremium){
+    private PayForOnePerson initPayAccount(Employee employee, BigDecimal empPremium, BigDecimal empBirthdayPremium){
         PayForOnePerson result = new PayForOnePerson(employee,
-                empPremium.add(employee.getRate()));
+                empPremium.add(employee.getRate().add(empBirthdayPremium)));
         result.setDepartment(this);
         result.setPremium(empPremium);
+        result.setPremiumBirthday(empBirthdayPremium);
         return result;
     }
 
-    private List<PayForOnePerson> calculateBalancedSalary(){
+    private BigDecimal calcBirthdayPremium(Employee employee, Date date){
+        if (employee.isBirthdayInMonth(date)){
+            return Config.BIRTHDAY_PREMIUM;
+        }else{
+            return new BigDecimal("0");
+        }
+    }
+
+    private List<PayForOnePerson> calculateBalancedSalary(Date date){
         List<PayForOnePerson> result = new ArrayList<>();
         BigDecimal empPremium = calculateBalancedPremiumValue();
         for (Employee employee: this.getEmployeeList()){
-            result.add(initPayAccount(employee,empPremium));
+            result.add(initPayAccount(employee,empPremium, calcBirthdayPremium(employee, date)));
         }
         return result;
     }
@@ -89,11 +99,11 @@ public abstract class Department<T extends Employee> {
         return premium;
     }
 
-    private List<PayForOnePerson> calculateUnbalancedSalary(){
+    private List<PayForOnePerson> calculateUnbalancedSalary(Date date){
         List<PayForOnePerson> result = new ArrayList<>();
         for (Employee employee: this.getEmployeeList()){
             BigDecimal empPremium = calculateUnbalancedPremiumValueForEmployee(employee);
-            result.add(initPayAccount(employee,empPremium));
+            result.add(initPayAccount(employee,empPremium,calcBirthdayPremium(employee,date)));
         }
         return result;
     }

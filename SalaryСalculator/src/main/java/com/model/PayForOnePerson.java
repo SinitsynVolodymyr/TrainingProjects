@@ -11,10 +11,19 @@ public class PayForOnePerson {
     private Department department;
     private BigDecimal salary;
     private BigDecimal premium;
+    private BigDecimal premiumBirthday;
 
     public PayForOnePerson(Employee employee, BigDecimal salary) {
         this.employee = employee;
         this.salary = salary.setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    public BigDecimal getPremiumBirthday() {
+        return premiumBirthday;
+    }
+
+    public void setPremiumBirthday(BigDecimal premiumBirthday) {
+        this.premiumBirthday = premiumBirthday;
     }
 
     public Department getDepartment() {

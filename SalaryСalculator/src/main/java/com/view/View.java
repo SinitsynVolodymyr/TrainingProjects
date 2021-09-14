@@ -29,7 +29,8 @@ public class View {
         AsciiTable at = new AsciiTable();
 
         at.addRule();
-        at.addRow(generateFirstRow(new String[]{"Name", "Department","Fund type", "Rate", "Premium", "Salary"}));
+        at.addRow(generateFirstRow(
+                new String[]{"Name", "Department","Fund type", "Rate", "Premium", "Premium birthday", "Salary"}));
         at.addRule();
 
         for (PayForOnePerson person: payroll.personList){
@@ -59,6 +60,7 @@ public class View {
         row.add(payForOnePerson.getDepartment().getFund().getType().getName());
         row.add(payForOnePerson.getEmployee().getRate().toString());
         row.add(payForOnePerson.getPremium().toString());
+        row.add(payForOnePerson.getPremiumBirthday().toString());
         row.add(payForOnePerson.getSalary().toString());
 
         return row.toArray(new String[0]);
@@ -70,10 +72,12 @@ public class View {
         BigDecimal rate = new BigDecimal("0");
         BigDecimal salary = new BigDecimal("0");
         BigDecimal premium = new BigDecimal("0");
+        BigDecimal premiumBirthday = new BigDecimal("0");
 
         for(PayForOnePerson person: payroll.personList){
             rate = rate.add(person.getEmployee().getRate());
             premium = premium.add(person.getPremium());
+            premiumBirthday = premiumBirthday.add(person.getPremiumBirthday());
             salary = salary.add(person.getSalary());
         }
 
@@ -81,8 +85,9 @@ public class View {
         finalRow.add("-");
         finalRow.add("-");
         finalRow.add(rate.toString());
-        finalRow.add(salary.toString());
         finalRow.add(premium.toString());
+        finalRow.add(premiumBirthday.toString());
+        finalRow.add(salary.toString());
 
         return finalRow.toArray(new String[0]);
     }
