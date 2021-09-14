@@ -50,9 +50,9 @@ public class Department {
 
     public BigDecimal getSalary(){
         BigDecimal result = new BigDecimal("0");
-        result.add(manager.getSalary());
+        result = result.add(manager.getSalary());
         for (Employee employeeTmp: manager.getEmployeeList()){
-            result.add(employeeTmp.getSalary());
+            result = result.add(employeeTmp.getSalary());
         }
 
         return result;
