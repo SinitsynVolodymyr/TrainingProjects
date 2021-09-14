@@ -13,7 +13,7 @@ public class PayForOnePerson {
 
     public PayForOnePerson(Employee employee, BigDecimal salary) {
         this.employee = employee;
-        this.salary = salary;
+        this.salary = salary.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public String getDepartmentName() {
@@ -29,7 +29,7 @@ public class PayForOnePerson {
     }
 
     public void setPremium(BigDecimal premium) {
-        this.premium = premium;
+        this.premium = premium.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public Employee getEmployee() {

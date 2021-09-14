@@ -5,6 +5,7 @@ import com.model.PayForOnePerson;
 import com.model.Payroll;
 import de.vandermeer.asciitable.AsciiTable;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class View {
             at.addRule();
         }
 
+        at.addRow(generateFinalRow(payroll));
+        at.addRule();
+
         this.print(at.render());
     }
 
@@ -58,6 +62,28 @@ public class View {
         row.add(payForOnePerson.getPremium().toString());
 
         return row.toArray(new String[0]);
+    }
+
+    private static String[] generateFinalRow(Payroll payroll){
+        List<String> finalRow = new ArrayList<>();
+
+        BigDecimal rate = new BigDecimal("0");
+        BigDecimal salary = new BigDecimal("0");
+        BigDecimal premium = new BigDecimal("0");
+
+        for(PayForOnePerson person: payroll.personList){
+            rate = rate.add(person.getEmployee().getSalary());
+            salary = salary.add(person.getSalary());
+            premium = premium.add(person.getPremium());
+        }
+
+        finalRow.add("-");
+        finalRow.add("-");
+        finalRow.add(rate.toString());
+        finalRow.add(salary.toString());
+        finalRow.add(premium.toString());
+
+        return finalRow.toArray(new String[0]);
     }
 
 }

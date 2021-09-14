@@ -24,7 +24,7 @@ public class Model {
     private List<Department> departmentList = new ArrayList<>();
     private SalariesFund fund;
     private SalariesFund.FundType fundTypeForOthers = SalariesFund.FundType.BALANCED;
-    private MathContext mc = new MathContext(2, RoundingMode.FLOOR);
+    private MathContext mc = new MathContext(20, RoundingMode.FLOOR);
 
     public Model(List<OthersEmployee> others, List<Department> departmentList) {
         Objects.requireNonNull(others);
@@ -87,8 +87,7 @@ public class Model {
                 minSalaryDep = minSalaryDep.add(employee.getSalary());
             }
             for (Employee employee: othersEmployee){
-                BigDecimal empPart = employee.getSalary().divide(minSalaryDep,mc);
-                BigDecimal empSalary = empPart.multiply(salary);
+                BigDecimal empPart = employee.getSalary().divide(minSalaryDep,mc); BigDecimal empSalary = empPart.multiply(salary);
                 PayForOnePerson payForOnePerson = new PayForOnePerson(employee, empSalary.add(employee.getSalary()));
                 payForOnePerson.setDepartmentName(View.othersName);
                 payForOnePerson.setPremium(empSalary);
@@ -163,6 +162,7 @@ public class Model {
     public BigDecimal getMinFund(){
         BigDecimal result = new BigDecimal("0");
         for (Department depTmp: departmentList){
+            result = result.add(depTmp.getManager().getSalary());
             for (Employee empTmp: depTmp.getEmployeeList()){
                 result = result.add(empTmp.getSalary());
             }
@@ -174,7 +174,6 @@ public class Model {
 
         return result;
     }
-
 
     public List<OthersEmployee> getOthers() {
         return others;
