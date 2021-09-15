@@ -3,6 +3,7 @@ package com;
 public class Driver {
     private Human human;
     private DriverLicense driverLicense;
+    private CarDriver carDriver;
 
     public Driver() {
     }
@@ -10,6 +11,14 @@ public class Driver {
     public Driver(Human human, DriverLicense driverLicense) {
         this.human = human;
         this.driverLicense = driverLicense;
+    }
+
+    public CarDriver getCarDriver() {
+        return carDriver;
+    }
+
+    public void setCarDriver(CarDriver carDriver) {
+        this.carDriver = carDriver;
     }
 
     public Human getHuman() {
