@@ -1,5 +1,7 @@
 package com;
 
+import java.util.Objects;
+
 public class Driver {
     private Human human;
     private DriverLicense driverLicense;
@@ -15,6 +17,17 @@ public class Driver {
 
     public CarDriver getCarDriver() {
         return carDriver;
+    }
+
+    public void move(){
+        Objects.requireNonNull(carDriver);
+        carDriver.move();
+
+    }
+
+    public void stop(){
+        Objects.requireNonNull(carDriver);
+        carDriver.stop();
     }
 
     public void setCarDriver(CarDriver carDriver) {
