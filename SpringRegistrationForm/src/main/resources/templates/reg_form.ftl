@@ -36,6 +36,24 @@
                            required
                            ng-model="auth.login">
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputLogin">E-mail</label>
+                    <input type="text"
+                           class="form-control"
+                           id="exampleInputLogin"
+                           placeholder="email@domain.com"
+                           required
+                           ng-model="auth.email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputLogin">Password</label>
+                    <input type="password"
+                           class="form-control"
+                           id="exampleInputLogin"
+                           placeholder="Your password"
+                           required
+                           ng-model="auth.password">
+                </div>
                 <button type="submit" class="btn btn-default" style="margin-top:30px" ng-disabled="form.$invalid">
                     Submit
                 </button>

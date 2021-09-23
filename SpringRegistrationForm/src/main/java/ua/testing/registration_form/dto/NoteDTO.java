@@ -14,4 +14,8 @@ public class NoteDTO {
 
     private String login;
 
+    private String email;
+
+    private String password;
+
 }
