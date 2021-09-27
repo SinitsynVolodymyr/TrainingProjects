@@ -8,6 +8,7 @@ import ua.testing.demo_jpa.dto.UserDTO;
 import ua.testing.demo_jpa.dto.UsersDTO;
 import ua.testing.demo_jpa.entity.RoleType;
 import ua.testing.demo_jpa.entity.User;
+import ua.testing.demo_jpa.exception.UserNotFoundException;
 import ua.testing.demo_jpa.service.UserService;
 
 @Slf4j
@@ -25,9 +26,11 @@ public class LoginFormController {
     @ResponseStatus(HttpStatus.CREATED)
     //@RequestMapping(value = "login", method = RequestMethod.POST)
     @PostMapping(value = "login")
-    public void loginFormController(UserDTO user){
+    public void loginFormController(UserDTO user) throws UserNotFoundException {
         log.info("{}",userService.findByUserLogin(user));
         log.info("{}", user);
+
+        userService.findByUserLogin(user).orElseThrow(() ->new UserNotFoundException());
 
        /*
        userService.saveNewUser(User.builder()
