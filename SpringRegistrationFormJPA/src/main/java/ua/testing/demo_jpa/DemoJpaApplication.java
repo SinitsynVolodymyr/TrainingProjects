@@ -10,8 +10,6 @@ import ua.testing.demo_jpa.service.UserService;
 @SpringBootApplication
 public class DemoJpaApplication {
 
-    @Autowired
-    private static UserService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoJpaApplication.class, args);
