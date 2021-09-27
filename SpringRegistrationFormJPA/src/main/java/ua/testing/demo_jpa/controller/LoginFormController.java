@@ -29,6 +29,7 @@ public class LoginFormController {
         log.info("{}",userService.findByUserLogin(user));
         log.info("{}", user);
 
+       /*
        userService.saveNewUser(User.builder()
                 .firstName("Ann")
                 .lastName("Reizer")
@@ -56,7 +57,7 @@ public class LoginFormController {
                 .email("OlegShevchenko@testing.ua")
                 .role(RoleType.ROLE_SUPERADMIN)
                 .build());
-
+*/
 
 
     }
