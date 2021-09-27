@@ -28,12 +28,37 @@ public class LoginFormController {
     public void loginFormController(UserDTO user){
         log.info("{}",userService.findByUserLogin(user));
         log.info("{}", user);
-/*       userService.saveNewUser(User.builder()
+
+       userService.saveNewUser(User.builder()
                 .firstName("Ann")
                 .lastName("Reizer")
                 .email("AnnReizer@testing.ua")
                 .role(RoleType.ROLE_USER)
-                .build());*/
+                .build());
+
+       userService.saveNewUser(User.builder()
+                .firstName("Misha")
+                .lastName("Oduha")
+                .email("MishaOduha@testing.ua")
+                .role(RoleType.ROLE_USER)
+                .build());
+
+       userService.saveNewUser(User.builder()
+                .firstName("Andriy")
+                .lastName("Hmelnik")
+                .email("AndriyHmelnik@testing.ua")
+                .role(RoleType.ROLE_ADMIN)
+                .build());
+
+       userService.saveNewUser(User.builder()
+                .firstName("Oleg")
+                .lastName("Shevchenko")
+                .email("OlegShevchenko@testing.ua")
+                .role(RoleType.ROLE_SUPERADMIN)
+                .build());
+
+
+
     }
 
     @RequestMapping(value = "user", method = RequestMethod.GET)
